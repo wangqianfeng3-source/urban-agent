@@ -1,0 +1,2237 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "site": "???????????????",
+    "warning": "????????????????????????????????"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "CP001",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.5802157,
+              31.29291853
+            ],
+            [
+              121.57869577,
+              31.29327291
+            ],
+            [
+              121.57132128,
+              31.29198047
+            ],
+            [
+              121.56678024,
+              31.29177202
+            ],
+            [
+              121.56713677,
+              31.29022943
+            ],
+            [
+              121.56843153,
+              31.29045873
+            ],
+            [
+              121.56921964,
+              31.28868684
+            ],
+            [
+              121.56790612,
+              31.28770708
+            ],
+            [
+              121.57310392,
+              31.29052127
+            ],
+            [
+              121.5802157,
+              31.29291853
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP001",
+        "landuse": "G",
+        "landuse_label": "green_open_space",
+        "area": 233618.6,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.35,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          34,
+          197,
+          94
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP001 ? green_open_space",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 55594.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP002",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.56282091,
+              31.2913551
+            ],
+            [
+              121.56237056,
+              31.29127172
+            ],
+            [
+              121.56253944,
+              31.28914545
+            ],
+            [
+              121.56265203,
+              31.28910375
+            ],
+            [
+              121.56268956,
+              31.28916629
+            ],
+            [
+              121.56298979,
+              31.28918714
+            ],
+            [
+              121.56282091,
+              31.2913551
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP002",
+        "landuse": "G",
+        "landuse_label": "green_open_space",
+        "area": 10346.1,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.35,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          34,
+          197,
+          94
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP002 ? green_open_space",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 2522.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP003",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.55360749,
+              31.29039619
+            ],
+            [
+              121.55225644,
+              31.29025027
+            ],
+            [
+              121.55240656,
+              31.28816569
+            ],
+            [
+              121.55375761,
+              31.28829077
+            ],
+            [
+              121.55360749,
+              31.29039619
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP003",
+        "landuse": "G",
+        "landuse_label": "green_open_space",
+        "area": 30088.8,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.35,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          34,
+          197,
+          94
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP003 ? green_open_space",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 7346.5
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP004",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.54668335,
+              31.28764455
+            ],
+            [
+              121.5464957,
+              31.28970828
+            ],
+            [
+              121.54416889,
+              31.28937475
+            ],
+            [
+              121.5407725,
+              31.28949982
+            ],
+            [
+              121.54099768,
+              31.28918714
+            ],
+            [
+              121.54351213,
+              31.28910375
+            ],
+            [
+              121.54354966,
+              31.28868684
+            ],
+            [
+              121.54274278,
+              31.28774878
+            ],
+            [
+              121.54373731,
+              31.28737355
+            ],
+            [
+              121.54405631,
+              31.28743609
+            ],
+            [
+              121.54405631,
+              31.28797808
+            ],
+            [
+              121.54471307,
+              31.28801977
+            ],
+            [
+              121.54473183,
+              31.28741524
+            ],
+            [
+              121.54503207,
+              31.28743609
+            ],
+            [
+              121.54499454,
+              31.28816569
+            ],
+            [
+              121.54615794,
+              31.28937475
+            ],
+            [
+              121.54643941,
+              31.28906206
+            ],
+            [
+              121.54668335,
+              31.28764455
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP004",
+        "landuse": "G",
+        "landuse_label": "green_open_space",
+        "area": 53056.7,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.35,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          34,
+          197,
+          94
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP004 ? green_open_space",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 13123.5
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP005",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.56282091,
+              31.28891614
+            ],
+            [
+              121.55918058,
+              31.28858261
+            ],
+            [
+              121.55933069,
+              31.28637295
+            ],
+            [
+              121.56291473,
+              31.28768624
+            ],
+            [
+              121.56282091,
+              31.28891614
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP005",
+        "landuse": "G",
+        "landuse_label": "green_open_space",
+        "area": 66627.6,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.35,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          34,
+          197,
+          94
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP005 ? green_open_space",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 15955.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP006",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.56043781,
+              31.28645634
+            ],
+            [
+              121.55931193,
+              31.28606027
+            ],
+            [
+              121.55963093,
+              31.28441345
+            ],
+            [
+              121.56088816,
+              31.28487206
+            ],
+            [
+              121.56043781,
+              31.28645634
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP006",
+        "landuse": "G",
+        "landuse_label": "green_open_space",
+        "area": 22053.6,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.35,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          34,
+          197,
+          94
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP006 ? green_open_space",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 5404.5
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP007",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.57421103,
+              31.29212639
+            ],
+            [
+              121.56899447,
+              31.29166779
+            ],
+            [
+              121.56908829,
+              31.29129256
+            ],
+            [
+              121.56886311,
+              31.29166779
+            ],
+            [
+              121.5668553,
+              31.29152187
+            ],
+            [
+              121.56698665,
+              31.28954152
+            ],
+            [
+              121.56769971,
+              31.28747778
+            ],
+            [
+              121.56706171,
+              31.28956236
+            ],
+            [
+              121.56726812,
+              31.29050042
+            ],
+            [
+              121.56846906,
+              31.29064634
+            ],
+            [
+              121.56946358,
+              31.28887445
+            ],
+            [
+              121.5744362,
+              31.29129256
+            ],
+            [
+              121.57421103,
+              31.29212639
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP007",
+        "landuse": "A",
+        "landuse_label": "public_service_or_special",
+        "area": 135671.0,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          168,
+          85,
+          247
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP007 ? public_service_or_special",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 31122.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP008",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.56507266,
+              31.29029196
+            ],
+            [
+              121.5650539,
+              31.28956236
+            ],
+            [
+              121.5653729,
+              31.28954152
+            ],
+            [
+              121.5653729,
+              31.29027112
+            ],
+            [
+              121.56507266,
+              31.29029196
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP008",
+        "landuse": "A",
+        "landuse_label": "public_service_or_special",
+        "area": 2386.3,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          168,
+          85,
+          247
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP008 ? public_service_or_special",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 629.5
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP009",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.55454572,
+              31.2891246
+            ],
+            [
+              121.55424549,
+              31.28910375
+            ],
+            [
+              121.55426425,
+              31.288395
+            ],
+            [
+              121.55456449,
+              31.28841584
+            ],
+            [
+              121.55454572,
+              31.2891246
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP009",
+        "landuse": "A",
+        "landuse_label": "public_service_or_special",
+        "area": 2250.1,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          168,
+          85,
+          247
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP009 ? public_service_or_special",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 572.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP010",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.56345891,
+              31.28891614
+            ],
+            [
+              121.56345891,
+              31.28818654
+            ],
+            [
+              121.56375914,
+              31.28820738
+            ],
+            [
+              121.56375914,
+              31.28891614
+            ],
+            [
+              121.56345891,
+              31.28891614
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP010",
+        "landuse": "A",
+        "landuse_label": "public_service_or_special",
+        "area": 2279.0,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          168,
+          85,
+          247
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP010 ? public_service_or_special",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 547.5
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP011",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.54938545,
+              31.2876237
+            ],
+            [
+              121.54910398,
+              31.28758201
+            ],
+            [
+              121.54914151,
+              31.28681072
+            ],
+            [
+              121.54944175,
+              31.28685241
+            ],
+            [
+              121.54938545,
+              31.2876237
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP011",
+        "landuse": "A",
+        "landuse_label": "public_service_or_special",
+        "area": 2388.4,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          168,
+          85,
+          247
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP011 ? public_service_or_special",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 625.5
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP012",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.54658953,
+              31.28733186
+            ],
+            [
+              121.54628929,
+              31.28731101
+            ],
+            [
+              121.54630806,
+              31.28660226
+            ],
+            [
+              121.54660829,
+              31.2866231
+            ],
+            [
+              121.54658953,
+              31.28733186
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP012",
+        "landuse": "A",
+        "landuse_label": "public_service_or_special",
+        "area": 2250.1,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          168,
+          85,
+          247
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP012 ? public_service_or_special",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 577.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP013",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.56905076,
+              31.2901252
+            ],
+            [
+              121.56809377,
+              31.29110495
+            ],
+            [
+              121.56837523,
+              31.29043788
+            ],
+            [
+              121.56788736,
+              31.29072973
+            ],
+            [
+              121.56809377,
+              31.2903545
+            ],
+            [
+              121.56709924,
+              31.29031281
+            ],
+            [
+              121.56681777,
+              31.28939559
+            ],
+            [
+              121.56687407,
+              31.29148017
+            ],
+            [
+              121.56655507,
+              31.29170948
+            ],
+            [
+              121.56289597,
+              31.2913551
+            ],
+            [
+              121.56304609,
+              31.28914545
+            ],
+            [
+              121.56445343,
+              31.28927052
+            ],
+            [
+              121.56287721,
+              31.2888536
+            ],
+            [
+              121.56289597,
+              31.28787385
+            ],
+            [
+              121.56420949,
+              31.28822823
+            ],
+            [
+              121.56366532,
+              31.28766539
+            ],
+            [
+              121.56445343,
+              31.28599773
+            ],
+            [
+              121.56477243,
+              31.28608111
+            ],
+            [
+              121.56488502,
+              31.28678987
+            ],
+            [
+              121.56529784,
+              31.28637295
+            ],
+            [
+              121.56933223,
+              31.28883276
+            ],
+            [
+              121.56841276,
+              31.29039619
+            ],
+            [
+              121.56905076,
+              31.2901252
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP013",
+        "landuse": "C",
+        "landuse_label": "development_mixed_or_residential",
+        "area": 239816.0,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          239,
+          68,
+          68
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP013 ? development_mixed_or_residential",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 57130.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP014",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.54105397,
+              31.28914545
+            ],
+            [
+              121.54107273,
+              31.28895783
+            ],
+            [
+              121.54122285,
+              31.28899952
+            ],
+            [
+              121.54129791,
+              31.28883276
+            ],
+            [
+              121.54176702,
+              31.28845753
+            ],
+            [
+              121.54165444,
+              31.28824908
+            ],
+            [
+              121.54172949,
+              31.288124
+            ],
+            [
+              121.54184208,
+              31.28831161
+            ],
+            [
+              121.54197343,
+              31.28831161
+            ],
+            [
+              121.54266773,
+              31.28770708
+            ],
+            [
+              121.5435309,
+              31.28874937
+            ],
+            [
+              121.54349337,
+              31.28906206
+            ],
+            [
+              121.54105397,
+              31.28914545
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP014",
+        "landuse": "C",
+        "landuse_label": "development_mixed_or_residential",
+        "area": 20531.7,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          239,
+          68,
+          68
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP014 ? development_mixed_or_residential",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 4866.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP015",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.54613918,
+              31.28933306
+            ],
+            [
+              121.54503207,
+              31.28816569
+            ],
+            [
+              121.54506959,
+              31.28743609
+            ],
+            [
+              121.5464957,
+              31.28760286
+            ],
+            [
+              121.54640188,
+              31.28895783
+            ],
+            [
+              121.54613918,
+              31.28933306
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP015",
+        "landuse": "C",
+        "landuse_label": "development_mixed_or_residential",
+        "area": 19522.0,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          239,
+          68,
+          68
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP015 ? development_mixed_or_residential",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 4749.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP016",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.56233303,
+              31.29127172
+            ],
+            [
+              121.55852382,
+              31.29095903
+            ],
+            [
+              121.55826111,
+              31.29045873
+            ],
+            [
+              121.55767941,
+              31.29127172
+            ],
+            [
+              121.55713524,
+              31.29123003
+            ],
+            [
+              121.55752929,
+              31.29095903
+            ],
+            [
+              121.55617824,
+              31.29114664
+            ],
+            [
+              121.55632836,
+              31.29077142
+            ],
+            [
+              121.55368255,
+              31.29039619
+            ],
+            [
+              121.55385143,
+              31.28806146
+            ],
+            [
+              121.55280061,
+              31.28795723
+            ],
+            [
+              121.5529132,
+              31.28670649
+            ],
+            [
+              121.55373884,
+              31.28674818
+            ],
+            [
+              121.5538139,
+              31.28514305
+            ],
+            [
+              121.55422672,
+              31.28508051
+            ],
+            [
+              121.55402031,
+              31.2834337
+            ],
+            [
+              121.55957463,
+              31.2843926
+            ],
+            [
+              121.55925564,
+              31.28603942
+            ],
+            [
+              121.55852382,
+              31.28585181
+            ],
+            [
+              121.5592744,
+              31.28651887
+            ],
+            [
+              121.55916181,
+              31.2883533
+            ],
+            [
+              121.55874899,
+              31.28864515
+            ],
+            [
+              121.56248315,
+              31.28908291
+            ],
+            [
+              121.56233303,
+              31.29127172
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP016",
+        "landuse": "C",
+        "landuse_label": "development_mixed_or_residential",
+        "area": 482635.5,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          239,
+          68,
+          68
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP016 ? development_mixed_or_residential",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 116141.5
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP017",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.54467554,
+              31.28793639
+            ],
+            [
+              121.54446913,
+              31.28797808
+            ],
+            [
+              121.5441126,
+              31.2878947
+            ],
+            [
+              121.5441126,
+              31.2873944
+            ],
+            [
+              121.54424395,
+              31.2873944
+            ],
+            [
+              121.54428148,
+              31.28731101
+            ],
+            [
+              121.54445036,
+              31.28745694
+            ],
+            [
+              121.54471307,
+              31.28741524
+            ],
+            [
+              121.54467554,
+              31.28793639
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP017",
+        "landuse": "C",
+        "landuse_label": "development_mixed_or_residential",
+        "area": 3296.7,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          239,
+          68,
+          68
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP017 ? development_mixed_or_residential",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 788.5
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP018",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.57918365,
+              31.28833246
+            ],
+            [
+              121.57526185,
+              31.2871234
+            ],
+            [
+              121.5723721,
+              31.28570589
+            ],
+            [
+              121.57531814,
+              31.28708171
+            ],
+            [
+              121.57918365,
+              31.28833246
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP018",
+        "landuse": "C",
+        "landuse_label": "development_mixed_or_residential",
+        "area": 2278.9,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          239,
+          68,
+          68
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP018 ? development_mixed_or_residential",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 1279.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP019",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.55261297,
+              31.28305847
+            ],
+            [
+              121.55253791,
+              31.28487206
+            ],
+            [
+              121.55096168,
+              31.28474698
+            ],
+            [
+              121.55248161,
+              31.28505967
+            ],
+            [
+              121.55225644,
+              31.28791554
+            ],
+            [
+              121.55043627,
+              31.28787385
+            ],
+            [
+              121.55236903,
+              31.288124
+            ],
+            [
+              121.55218138,
+              31.29025027
+            ],
+            [
+              121.55126191,
+              31.28981251
+            ],
+            [
+              121.54660829,
+              31.28966659
+            ],
+            [
+              121.54672088,
+              31.28751947
+            ],
+            [
+              121.54439407,
+              31.28724848
+            ],
+            [
+              121.54752776,
+              31.28537236
+            ],
+            [
+              121.54606412,
+              31.28597688
+            ],
+            [
+              121.54600782,
+              31.2848929
+            ],
+            [
+              121.54705864,
+              31.28397569
+            ],
+            [
+              121.54923534,
+              31.28391315
+            ],
+            [
+              121.54936669,
+              31.28307932
+            ],
+            [
+              121.55261297,
+              31.28305847
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP019",
+        "landuse": "C",
+        "landuse_label": "development_mixed_or_residential",
+        "area": 405849.3,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          239,
+          68,
+          68
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP019 ? development_mixed_or_residential",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 98054.5
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP020",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.54317437,
+              31.28735271
+            ],
+            [
+              121.54324943,
+              31.28720679
+            ],
+            [
+              121.54323066,
+              31.28687325
+            ],
+            [
+              121.54383113,
+              31.28645634
+            ],
+            [
+              121.54392495,
+              31.2861228
+            ],
+            [
+              121.54396248,
+              31.28628957
+            ],
+            [
+              121.54413136,
+              31.28626872
+            ],
+            [
+              121.54433777,
+              31.28601858
+            ],
+            [
+              121.54473183,
+              31.28583096
+            ],
+            [
+              121.54480689,
+              31.28658141
+            ],
+            [
+              121.54488195,
+              31.28668564
+            ],
+            [
+              121.54463801,
+              31.28683156
+            ],
+            [
+              121.54439407,
+              31.28687325
+            ],
+            [
+              121.5443753,
+              31.28695664
+            ],
+            [
+              121.54413136,
+              31.28708171
+            ],
+            [
+              121.54345584,
+              31.28726932
+            ],
+            [
+              121.54341831,
+              31.28747778
+            ],
+            [
+              121.54334325,
+              31.28747778
+            ],
+            [
+              121.54328696,
+              31.28735271
+            ],
+            [
+              121.54317437,
+              31.28735271
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP020",
+        "landuse": "C",
+        "landuse_label": "development_mixed_or_residential",
+        "area": 12945.5,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          239,
+          68,
+          68
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP020 ? development_mixed_or_residential",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 3073.0
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP021",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.56313991,
+              31.28770708
+            ],
+            [
+              121.56259574,
+              31.28731101
+            ],
+            [
+              121.56141357,
+              31.28695664
+            ],
+            [
+              121.56096322,
+              31.28668564
+            ],
+            [
+              121.56071928,
+              31.28674818
+            ],
+            [
+              121.56070051,
+              31.28660226
+            ],
+            [
+              121.56045657,
+              31.28651887
+            ],
+            [
+              121.56100074,
+              31.28470529
+            ],
+            [
+              121.56222044,
+              31.28522643
+            ],
+            [
+              121.56263327,
+              31.28522643
+            ],
+            [
+              121.56287721,
+              31.28533066
+            ],
+            [
+              121.5629335,
+              31.28553912
+            ],
+            [
+              121.56360903,
+              31.28574758
+            ],
+            [
+              121.56323373,
+              31.28672733
+            ],
+            [
+              121.56340261,
+              31.28697748
+            ],
+            [
+              121.56317744,
+              31.28695664
+            ],
+            [
+              121.56308362,
+              31.28731101
+            ],
+            [
+              121.56323373,
+              31.28724848
+            ],
+            [
+              121.56306485,
+              31.2873944
+            ],
+            [
+              121.56313991,
+              31.28770708
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP021",
+        "landuse": "C",
+        "landuse_label": "development_mixed_or_residential",
+        "area": 55731.1,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          239,
+          68,
+          68
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP021 ? development_mixed_or_residential",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 13591.5
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CP022",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.54503207,
+              31.28658141
+            ],
+            [
+              121.54497577,
+              31.28562251
+            ],
+            [
+              121.54550118,
+              31.28526813
+            ],
+            [
+              121.54578265,
+              31.28535151
+            ],
+            [
+              121.54585771,
+              31.2861228
+            ],
+            [
+              121.54563253,
+              31.28622703
+            ],
+            [
+              121.545595,
+              31.28633126
+            ],
+            [
+              121.54544489,
+              31.28633126
+            ],
+            [
+              121.54503207,
+              31.28658141
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "parcel_id": "CP022",
+        "landuse": "C",
+        "landuse_label": "development_mixed_or_residential",
+        "area": 8434.9,
+        "far": 1.5,
+        "height": 24,
+        "green_ratio": 0.2,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        },
+        "fill": [
+          239,
+          68,
+          68
+        ],
+        "line": [
+          30,
+          41,
+          59,
+          220
+        ],
+        "label": "CP022 ? development_mixed_or_residential",
+        "source": "control_plan_image_approx",
+        "source_pixel_area": 2100.5
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R001",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.53996562,
+            31.28829077
+          ],
+          [
+            121.5431556,
+            31.28849923
+          ],
+          [
+            121.54653323,
+            31.28881191
+          ],
+          [
+            121.55009851,
+            31.28902037
+          ],
+          [
+            121.55356996,
+            31.28922883
+          ],
+          [
+            121.55722906,
+            31.28937475
+          ],
+          [
+            121.56079433,
+            31.28952067
+          ],
+          [
+            121.5647349,
+            31.28968744
+          ],
+          [
+            121.56848782,
+            31.28995843
+          ],
+          [
+            121.57261604,
+            31.29037535
+          ],
+          [
+            121.57815159,
+            31.29089649
+          ]
+        ]
+      },
+      "properties": {
+        "road_id": "R001",
+        "name": "???????",
+        "source": "control_plan_image_manual_trace",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "???????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R002",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.54550118,
+            31.28610196
+          ],
+          [
+            121.54840969,
+            31.28572673
+          ],
+          [
+            121.55216262,
+            31.28558081
+          ],
+          [
+            121.55610318,
+            31.28578927
+          ],
+          [
+            121.56004375,
+            31.28641465
+          ],
+          [
+            121.56360903,
+            31.28714425
+          ],
+          [
+            121.56623607,
+            31.28808231
+          ],
+          [
+            121.56905076,
+            31.28829077
+          ]
+        ]
+      },
+      "properties": {
+        "road_id": "R002",
+        "name": "?????",
+        "source": "control_plan_image_manual_trace",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "?????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R003",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55084909,
+            31.29204301
+          ],
+          [
+            121.55478966,
+            31.29214724
+          ],
+          [
+            121.55873023,
+            31.2923557
+          ],
+          [
+            121.56285844,
+            31.29277261
+          ],
+          [
+            121.5671743,
+            31.29314784
+          ],
+          [
+            121.57186545,
+            31.29360645
+          ],
+          [
+            121.57843306,
+            31.29423182
+          ]
+        ]
+      },
+      "properties": {
+        "road_id": "R003",
+        "name": "????/????",
+        "source": "control_plan_image_manual_trace",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "????/????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R004",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.54127914,
+            31.29016689
+          ],
+          [
+            121.54371854,
+            31.28881191
+          ],
+          [
+            121.54643941,
+            31.28693579
+          ],
+          [
+            121.54916028,
+            31.2851639
+          ]
+        ]
+      },
+      "properties": {
+        "road_id": "R004",
+        "name": "???????",
+        "source": "control_plan_image_manual_trace",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "???????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R005",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55037998,
+            31.29256416
+          ],
+          [
+            121.5504738,
+            31.29016689
+          ],
+          [
+            121.55066145,
+            31.28797808
+          ],
+          [
+            121.55084909,
+            31.28547658
+          ]
+        ]
+      },
+      "properties": {
+        "road_id": "R005",
+        "name": "?????",
+        "source": "control_plan_image_manual_trace",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "?????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R006",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.56201403,
+            31.29277261
+          ],
+          [
+            121.56210786,
+            31.29006266
+          ],
+          [
+            121.56192021,
+            31.28714425
+          ],
+          [
+            121.56163874,
+            31.28505967
+          ]
+        ]
+      },
+      "properties": {
+        "road_id": "R006",
+        "name": "?????",
+        "source": "control_plan_image_manual_trace",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "?????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R007",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.56661136,
+            31.29339799
+          ],
+          [
+            121.56676148,
+            31.29068803
+          ],
+          [
+            121.56689283,
+            31.28776962
+          ],
+          [
+            121.56754959,
+            31.28547658
+          ]
+        ]
+      },
+      "properties": {
+        "road_id": "R007",
+        "name": "?????",
+        "source": "control_plan_image_manual_trace",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "?????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R008",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.56998899,
+            31.29350222
+          ],
+          [
+            121.57045811,
+            31.29131341
+          ],
+          [
+            121.57092722,
+            31.28870768
+          ],
+          [
+            121.57158398,
+            31.28620619
+          ]
+        ]
+      },
+      "properties": {
+        "road_id": "R008",
+        "name": "?????",
+        "source": "control_plan_image_manual_trace",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "?????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R009",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55159968,
+            31.28693579
+          ],
+          [
+            121.55516495,
+            31.28704002
+          ],
+          [
+            121.55873023,
+            31.28724848
+          ],
+          [
+            121.56173256,
+            31.28751947
+          ]
+        ]
+      },
+      "properties": {
+        "road_id": "R009",
+        "name": "?????",
+        "source": "control_plan_image_manual_trace",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "?????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R010",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.56435961,
+            31.28891614
+          ],
+          [
+            121.56632989,
+            31.28870768
+          ],
+          [
+            121.56830018,
+            31.28849923
+          ],
+          [
+            121.57027046,
+            31.28745694
+          ]
+        ]
+      },
+      "properties": {
+        "road_id": "R010",
+        "name": "????",
+        "source": "control_plan_image_manual_trace",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "????"
+      }
+    }
+  ]
+}

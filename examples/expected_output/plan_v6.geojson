@@ -1,0 +1,447 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "site": "复兴岛示例片区（玩具数据）",
+    "version": 6
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "P01",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.55,
+              31.3082
+            ],
+            [
+              121.55149999999999,
+              31.3082
+            ],
+            [
+              121.55149999999999,
+              31.3094
+            ],
+            [
+              121.55,
+              31.3094
+            ],
+            [
+              121.55,
+              31.3082
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "landuse": "T",
+        "far": 1.5,
+        "height": 24.0,
+        "green_ratio": 0.1,
+        "area": 10000.0,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": true,
+          "historic": false
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P02",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.5517,
+              31.3082
+            ],
+            [
+              121.55319999999999,
+              31.3082
+            ],
+            [
+              121.55319999999999,
+              31.3094
+            ],
+            [
+              121.5517,
+              31.3094
+            ],
+            [
+              121.5517,
+              31.3082
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "landuse": "R",
+        "far": 1.8,
+        "height": 54.0,
+        "green_ratio": 0.25,
+        "area": 12000.0,
+        "facilities": [
+          "community_center"
+        ],
+        "zone_flags": {
+          "zero_carbon": true,
+          "historic": false
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P03",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.5534,
+              31.3082
+            ],
+            [
+              121.55489999999999,
+              31.3082
+            ],
+            [
+              121.55489999999999,
+              31.3094
+            ],
+            [
+              121.5534,
+              31.3094
+            ],
+            [
+              121.5534,
+              31.3082
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "landuse": "R",
+        "far": 2.0,
+        "height": 60.0,
+        "green_ratio": 0.3,
+        "area": 12000.0,
+        "facilities": [
+          "elderly_care"
+        ],
+        "zone_flags": {
+          "zero_carbon": true,
+          "historic": false
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P04",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.5551,
+              31.3082
+            ],
+            [
+              121.55659999999999,
+              31.3082
+            ],
+            [
+              121.55659999999999,
+              31.3094
+            ],
+            [
+              121.5551,
+              31.3094
+            ],
+            [
+              121.5551,
+              31.3082
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "landuse": "T",
+        "far": 2.5,
+        "height": 80.0,
+        "green_ratio": 0.15,
+        "area": 10000.0,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": true,
+          "historic": false
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P05",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.5568,
+              31.3082
+            ],
+            [
+              121.55829999999999,
+              31.3082
+            ],
+            [
+              121.55829999999999,
+              31.3094
+            ],
+            [
+              121.5568,
+              31.3094
+            ],
+            [
+              121.5568,
+              31.3082
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "landuse": "A",
+        "far": 1.0,
+        "height": 24.0,
+        "green_ratio": 0.2,
+        "area": 4000.0,
+        "facilities": [
+          "clinic"
+        ],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P06",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.55,
+              31.3062
+            ],
+            [
+              121.55149999999999,
+              31.3062
+            ],
+            [
+              121.55149999999999,
+              31.3074
+            ],
+            [
+              121.55,
+              31.3074
+            ],
+            [
+              121.55,
+              31.3062
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "landuse": "G",
+        "far": 0.0,
+        "height": 0.0,
+        "green_ratio": 0.9,
+        "area": 14000.0,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P07",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.5517,
+              31.3062
+            ],
+            [
+              121.55319999999999,
+              31.3062
+            ],
+            [
+              121.55319999999999,
+              31.3074
+            ],
+            [
+              121.5517,
+              31.3074
+            ],
+            [
+              121.5517,
+              31.3062
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "landuse": "R",
+        "far": 2.2,
+        "height": 66.0,
+        "green_ratio": 0.28,
+        "area": 12000.0,
+        "facilities": [
+          "library"
+        ],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P08",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.5534,
+              31.3062
+            ],
+            [
+              121.55489999999999,
+              31.3062
+            ],
+            [
+              121.55489999999999,
+              31.3074
+            ],
+            [
+              121.5534,
+              31.3074
+            ],
+            [
+              121.5534,
+              31.3062
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "landuse": "T",
+        "far": 1.2,
+        "height": 24.0,
+        "green_ratio": 0.1,
+        "area": 12000.0,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P09",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.5551,
+              31.3062
+            ],
+            [
+              121.55659999999999,
+              31.3062
+            ],
+            [
+              121.55659999999999,
+              31.3074
+            ],
+            [
+              121.5551,
+              31.3074
+            ],
+            [
+              121.5551,
+              31.3062
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "landuse": "T",
+        "far": 2.4,
+        "height": 60.0,
+        "green_ratio": 0.15,
+        "area": 10000.0,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": false
+        }
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "P10",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              121.5568,
+              31.3062
+            ],
+            [
+              121.55829999999999,
+              31.3062
+            ],
+            [
+              121.55829999999999,
+              31.3074
+            ],
+            [
+              121.5568,
+              31.3074
+            ],
+            [
+              121.5568,
+              31.3062
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "landuse": "T",
+        "far": 1.6,
+        "height": 40.0,
+        "green_ratio": 0.2,
+        "area": 10000.0,
+        "facilities": [],
+        "zone_flags": {
+          "zero_carbon": false,
+          "historic": true
+        }
+      }
+    }
+  ]
+}

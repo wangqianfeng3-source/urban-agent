@@ -1,0 +1,13 @@
+# 核心（骨架运行必需）
+openai>=1.30          # LLM 编辑器（OpenAI 兼容端点：通义/DeepSeek 通用）
+pytest>=8.0
+
+# 数据与 GIS（B 组及维度组接真实数据后必需）
+geopandas>=0.14
+shapely>=2.0
+osmnx>=1.9
+pandas>=2.0
+
+# 可视化（D 组）
+streamlit>=1.35
+pydeck>=0.9

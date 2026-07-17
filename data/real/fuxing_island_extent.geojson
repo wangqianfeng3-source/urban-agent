@@ -1,0 +1,30 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "site": "复兴岛真实数据范围（来自 ArcGIS Pro 工程默认视图范围）",
+    "source": "D:/HKUST-GZ/research/shanghai/fuxing_isalnd/fuxing_isalnd/fuxing_isalnd.aprx",
+    "note": "原始 shapefile 数据源未随 APRX 一起提供；此文件仅保存项目范围，用于 UI 地图定位。"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "fuxing_island_extent",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [121.5379015151643, 31.276221049670816],
+          [121.58128528369463, 31.276221049670816],
+          [121.58128528369463, 31.299651727833428],
+          [121.5379015151643, 31.299651727833428],
+          [121.5379015151643, 31.276221049670816]
+        ]]
+      },
+      "properties": {
+        "name": "复兴岛真实数据范围",
+        "fill": [14, 165, 233, 55],
+        "line": [14, 116, 144, 220],
+        "label": "复兴岛真实数据范围（APRX 默认范围）"
+      }
+    }
+  ]
+}

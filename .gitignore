@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+.conda/
+.venv/
+venv/
+
+# 运行产物（examples/expected_output/ 里有固化样例）
+runs/
+
+# 数据纪律：原始数据不入 git
+data/raw/
+
+# 密钥
+.env
+*.key
+
+# 系统
+.DS_Store
+
+# 交付产物（deck 等大文件不入库，源脚本已在 outputs/*/ 中说明）
+outputs/

@@ -1,0 +1,170 @@
+[
+  {
+    "iteration": 1,
+    "plan_version": 1,
+    "total": 0.0,
+    "hard_pass": false,
+    "scores": {
+      "能源与碳": 0.0,
+      "人和社会": 49.4
+    },
+    "violations": [
+      {
+        "rule": "carbon-H1",
+        "parcel": "P01",
+        "message": "地块 P01 位于零碳示范区，禁止工业用地（现为 M）"
+      },
+      {
+        "rule": "carbon-H2",
+        "parcel": "P04",
+        "message": "地块 P04 位于零碳示范区，容积率 3.0 超过上限 2.5"
+      },
+      {
+        "rule": "society-H1",
+        "parcel": "P02",
+        "message": "居住地块 P02 绿地率 0.10 低于规范下限 0.25"
+      }
+    ],
+    "evidence": {
+      "能源与碳": "基准排放 8434 tCO2/年，当前 8434 tCO2/年，减排 0.0%（目标 25% 记满分）",
+      "人和社会": "功能混合度 82/100（R/C/T/A 熵值），设施多样性 0/100（0/4 类）"
+    },
+    "actions": [
+      {
+        "ok": true,
+        "desc": "P01 用地 M→T",
+        "reason": "零碳示范区工业用地向科创研发转型（carbon-H1）"
+      },
+      {
+        "ok": true,
+        "desc": "P04 容积率 3.00→2.50",
+        "reason": "零碳示范区容积率压回 2.5（carbon-H2）"
+      }
+    ]
+  },
+  {
+    "iteration": 2,
+    "plan_version": 2,
+    "total": 0.0,
+    "hard_pass": false,
+    "scores": {
+      "能源与碳": 42.7,
+      "人和社会": 52.0
+    },
+    "violations": [
+      {
+        "rule": "society-H1",
+        "parcel": "P02",
+        "message": "居住地块 P02 绿地率 0.10 低于规范下限 0.25"
+      }
+    ],
+    "evidence": {
+      "能源与碳": "基准排放 8434 tCO2/年，当前 7534 tCO2/年，减排 10.7%（目标 25% 记满分）",
+      "人和社会": "功能混合度 87/100（R/C/T/A 熵值），设施多样性 0/100（0/4 类）"
+    },
+    "actions": [
+      {
+        "ok": true,
+        "desc": "P02 绿地率 0.10→0.25",
+        "reason": "居住地块绿地率补足到规范下限（society-H1）"
+      }
+    ]
+  },
+  {
+    "iteration": 3,
+    "plan_version": 3,
+    "total": 47.4,
+    "hard_pass": true,
+    "scores": {
+      "能源与碳": 42.9,
+      "人和社会": 52.0
+    },
+    "violations": [],
+    "evidence": {
+      "能源与碳": "基准排放 8434 tCO2/年，当前 7531 tCO2/年，减排 10.7%（目标 25% 记满分）",
+      "人和社会": "功能混合度 87/100（R/C/T/A 熵值），设施多样性 0/100（0/4 类）"
+    },
+    "actions": [
+      {
+        "ok": true,
+        "desc": "P04 用地 C→T",
+        "reason": "P04 为高排放商业地块，转为科创研发以削减排放源"
+      },
+      {
+        "ok": true,
+        "desc": "P02 新增设施 community_center",
+        "reason": "补齐片区缺失的设施类型 community_center，提升全龄友好度"
+      }
+    ]
+  },
+  {
+    "iteration": 4,
+    "plan_version": 4,
+    "total": 62.9,
+    "hard_pass": true,
+    "scores": {
+      "能源与碳": 66.6,
+      "人和社会": 59.2
+    },
+    "violations": [],
+    "evidence": {
+      "能源与碳": "基准排放 8434 tCO2/年，当前 7031 tCO2/年，减排 16.6%（目标 25% 记满分）",
+      "人和社会": "功能混合度 82/100（R/C/T/A 熵值），设施多样性 25/100（1/4 类）"
+    },
+    "actions": [
+      {
+        "ok": true,
+        "desc": "P03 新增设施 elderly_care",
+        "reason": "补齐片区缺失的设施类型 elderly_care，提升全龄友好度"
+      },
+      {
+        "ok": true,
+        "desc": "P09 用地 C→T",
+        "reason": "P09 为高排放商业地块，转为科创研发以削减排放源"
+      }
+    ]
+  },
+  {
+    "iteration": 5,
+    "plan_version": 5,
+    "total": 73.2,
+    "hard_pass": true,
+    "scores": {
+      "能源与碳": 89.3,
+      "人和社会": 57.0
+    },
+    "violations": [],
+    "evidence": {
+      "能源与碳": "基准排放 8434 tCO2/年，当前 6551 tCO2/年，减排 22.3%（目标 25% 记满分）",
+      "人和社会": "功能混合度 62/100（R/C/T/A 熵值），设施多样性 50/100（2/4 类）"
+    },
+    "actions": [
+      {
+        "ok": true,
+        "desc": "P07 新增设施 library",
+        "reason": "补齐片区缺失的设施类型 library，提升全龄友好度"
+      },
+      {
+        "ok": true,
+        "desc": "P08 用地 M→T",
+        "reason": "P08 为高排放工业地块，转为科创研发以削减排放源"
+      }
+    ]
+  },
+  {
+    "iteration": 6,
+    "plan_version": 6,
+    "total": 82.9,
+    "hard_pass": true,
+    "scores": {
+      "能源与碳": 100.0,
+      "人和社会": 65.7
+    },
+    "violations": [],
+    "evidence": {
+      "能源与碳": "基准排放 8434 tCO2/年，当前 5975 tCO2/年，减排 29.2%（目标 25% 记满分）",
+      "人和社会": "功能混合度 60/100（R/C/T/A 熵值），设施多样性 75/100（3/4 类）"
+    },
+    "actions": []
+  }
+]

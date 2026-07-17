@@ -1,0 +1,486 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "site": "???????-?????",
+    "version": 1,
+    "source_image": "C:\\Users\\90809\\AppData\\Local\\Temp\\codex-clipboard-59e52257-87ab-457c-ab1a-315df73d5a38.png"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "R-01",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55676595218362,
+            31.2964776932079
+          ],
+          [
+            121.55670759,
+            31.29548433
+          ],
+          [
+            121.55633634,
+            31.29166596
+          ],
+          [
+            121.55614265,
+            31.28797348
+          ],
+          [
+            121.55599738,
+            31.28467262
+          ],
+          [
+            121.5559253449862,
+            31.28367391596023
+          ]
+        ]
+      },
+      "properties": {
+        "name": "???????",
+        "source": "control_plan_image_aligned_to_real_boundary",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "???????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R-02-1",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55751213005624,
+            31.295809651721513
+          ],
+          [
+            121.55749253975253,
+            31.295423840247164
+          ]
+        ]
+      },
+      "properties": {
+        "name": "???????",
+        "source": "control_plan_image_aligned_to_real_boundary",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "???????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R-02-2",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55748113225431,
+            31.295199180957958
+          ],
+          [
+            121.55738553,
+            31.29331639
+          ],
+          [
+            121.55736939,
+            31.29012743
+          ],
+          [
+            121.55732096,
+            31.28702238
+          ],
+          [
+            121.5572564,
+            31.28408518
+          ],
+          [
+            121.55719183,
+            31.28177738
+          ],
+          [
+            121.55728868,
+            31.27974931
+          ]
+        ]
+      },
+      "properties": {
+        "name": "???????",
+        "source": "control_plan_image_aligned_to_real_boundary",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "???????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R-03",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.56015100166216,
+            31.29023999494216
+          ],
+          [
+            121.55954846,
+            31.28723218
+          ],
+          [
+            121.55843471,
+            31.28380545
+          ],
+          [
+            121.55743395,
+            31.28093818
+          ],
+          [
+            121.55730482,
+            31.27974931
+          ]
+        ]
+      },
+      "properties": {
+        "name": "??????",
+        "source": "control_plan_image_aligned_to_real_boundary",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "??????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R-04",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55809575,
+            31.30271544
+          ],
+          [
+            121.55680444,
+            31.30156853
+          ],
+          [
+            121.55870912,
+            31.30030973
+          ],
+          [
+            121.56000042,
+            31.2991908
+          ]
+        ]
+      },
+      "properties": {
+        "name": "?????",
+        "source": "control_plan_image_aligned_to_real_boundary",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "?????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R-05",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55654618,
+            31.29709279
+          ],
+          [
+            121.55756308,
+            31.29705083
+          ],
+          [
+            121.55924178,
+            31.29688299
+          ],
+          [
+            121.5606945,
+            31.29649137
+          ]
+        ]
+      },
+      "properties": {
+        "name": "????",
+        "source": "control_plan_image_aligned_to_real_boundary",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R-06",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55648162,
+            31.29436539
+          ],
+          [
+            121.5575308,
+            31.29426748
+          ],
+          [
+            121.55805655861354,
+            31.294221922360347
+          ]
+        ]
+      },
+      "properties": {
+        "name": "????",
+        "source": "control_plan_image_aligned_to_real_boundary",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R-07",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55635249,
+            31.29152609
+          ],
+          [
+            121.55736939,
+            31.29149812
+          ],
+          [
+            121.55896738,
+            31.29142819
+          ],
+          [
+            121.55961970649889,
+            31.291380197118915
+          ]
+        ]
+      },
+      "properties": {
+        "name": "????",
+        "source": "control_plan_image_aligned_to_real_boundary",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R-08",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55609422,
+            31.28709232
+          ],
+          [
+            121.55730482,
+            31.28702238
+          ],
+          [
+            121.55896738,
+            31.28691049
+          ],
+          [
+            121.56059765,
+            31.28681258
+          ]
+        ]
+      },
+      "properties": {
+        "name": "????",
+        "source": "control_plan_image_aligned_to_real_boundary",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R-09",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55602352694888,
+            31.282800437145298
+          ],
+          [
+            121.55696586,
+            31.28271448
+          ],
+          [
+            121.55814417,
+            31.28247671
+          ],
+          [
+            121.55908037,
+            31.28201515
+          ]
+        ]
+      },
+      "properties": {
+        "name": "??????",
+        "source": "control_plan_image_aligned_to_real_boundary",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "??????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R-10",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55728868,
+            31.27974931
+          ],
+          [
+            121.55696586,
+            31.27891011
+          ],
+          [
+            121.55652838455205,
+            31.27844457613609
+          ]
+        ]
+      },
+      "properties": {
+        "name": "????",
+        "source": "control_plan_image_aligned_to_real_boundary",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R-11",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55736939,
+            31.30163847
+          ],
+          [
+            121.55851542,
+            31.30072933
+          ],
+          [
+            121.55964531,
+            31.29994608
+          ],
+          [
+            121.5609689,
+            31.29921877
+          ]
+        ]
+      },
+      "properties": {
+        "name": "??????",
+        "source": "control_plan_image_aligned_to_real_boundary",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "??????"
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R-12",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.55962917,
+            31.28541391
+          ],
+          [
+            121.55914493,
+            31.28401525
+          ],
+          [
+            121.55849928,
+            31.28282638
+          ],
+          [
+            121.55764379,
+            31.28163751
+          ]
+        ]
+      },
+      "properties": {
+        "name": "????",
+        "source": "control_plan_image_aligned_to_real_boundary",
+        "line": [
+          15,
+          23,
+          42,
+          230
+        ],
+        "label": "????"
+      }
+    }
+  ]
+}
