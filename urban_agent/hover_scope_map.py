@@ -16,7 +16,7 @@ from shapely.ops import unary_union
 _COMPONENT_HTML = """
 <div class="hover-map-shell" data-testid="hover-scope-map" data-hover-active="false">
   <div class="hover-map-canvas"></div>
-  <div class="hover-map-hint">悬停橙色范围内任一地块，整组范围将高亮并抬升</div>
+  <div class="hover-map-hint">悬停蓝色范围内任一地块，整组范围将高亮并抬升</div>
   <div class="hover-map-attribution">© CARTO · © OpenStreetMap contributors</div>
   <div class="hover-map-error" hidden></div>
 </div>
@@ -153,7 +153,7 @@ function makeLayers(deckLib, data, scopeHovered, onHover) {
     pickable: true,
     autoHighlight: false,
     filled: true,
-    stroked: false,
+    stroked: true,
     extruded: true,
     wireframe: true,
     material: {
@@ -164,6 +164,10 @@ function makeLayers(deckLib, data, scopeHovered, onHover) {
     },
     getFillColor: feature => feature.properties?.base_fill ?? [190, 198, 210, 65],
     getLineColor: feature => feature.properties?.base_line ?? [135, 145, 160, 110],
+    getLineWidth: feature => feature.properties?.scope_member ? 2.5 : 1,
+    lineWidthUnits: "pixels",
+    lineJointRounded: true,
+    lineCapRounded: true,
     getElevation: feature => {
       const belongs = Boolean(feature.properties?.scope_member)
       return belongs && scopeHovered ? liftMeters : 0
@@ -187,8 +191,8 @@ function makeLayers(deckLib, data, scopeHovered, onHover) {
       pickable: false,
       stroked: true,
       filled: false,
-      getLineColor: scopeHovered ? [255, 224, 72, 255] : [180, 72, 0, 235],
-      getLineWidth: scopeHovered ? 6 : 2,
+      getLineColor: scopeHovered ? [70, 230, 255, 255] : [15, 70, 180, 245],
+      getLineWidth: scopeHovered ? 6 : 4,
       lineWidthUnits: "pixels",
       lineJointRounded: true,
       lineCapRounded: true
@@ -349,7 +353,7 @@ export default function(component) {
 
 
 _HOVER_SCOPE_MAP = st.components.v2.component(
-    "urban_agent_hover_scope_map_v6",
+    "urban_agent_hover_scope_map_v8",
     html=_COMPONENT_HTML,
     css=_COMPONENT_CSS,
     js=_COMPONENT_JS,
@@ -417,10 +421,10 @@ def render_hover_scope_map(
         properties["scope_member"] = belongs
         properties["parcel_id"] = parcel_id
         properties["base_fill"] = (
-            [255, 132, 32, 205] if belongs else [190, 198, 210, 65]
+            [45, 126, 247, 155] if belongs else [190, 198, 210, 65]
         )
         properties["base_line"] = (
-            [180, 72, 0, 255] if belongs else [135, 145, 160, 110]
+            [15, 70, 180, 255] if belongs else [135, 145, 160, 110]
         )
 
     scope_outline = _scope_outline_geometry(features, target_ids)

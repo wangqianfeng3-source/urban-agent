@@ -17,8 +17,12 @@ def test_component_uses_client_side_hover_elevation_without_legacy_api():
     assert "transitions" in script
     assert "scopeHovered" in script
     assert 'id: "scope-outline"' in script
+    assert "stroked: true" in script
+    assert "feature.properties?.scope_member ? 2.5 : 1" in script
+    assert 'lineWidthUnits: "pixels"' in script
+    assert "scopeHovered ? 6 : 4" in script
     assert "belongs && scopeHovered ? liftMeters : 0" in script
-    assert "scopeHovered ? [255, 224, 72, 255]" in script
+    assert "scopeHovered ? [70, 230, 255, 255]" in script
     assert 'addEventListener("pointerleave"' in script
     assert 'removeEventListener("pointerleave"' in script
     assert 'addEventListener("mouseleave"' in script
@@ -58,8 +62,8 @@ def test_renderer_tags_scope_members_without_mutating_source(monkeypatch):
     by_id = {str(feature["id"]): feature for feature in features}
     assert by_id[first_id]["properties"]["scope_member"] is True
     assert by_id[second_id]["properties"]["scope_member"] is False
-    assert by_id[first_id]["properties"]["base_fill"] == [255, 132, 32, 205]
-    assert by_id[first_id]["properties"]["base_line"] == [180, 72, 0, 255]
+    assert by_id[first_id]["properties"]["base_fill"] == [45, 126, 247, 155]
+    assert by_id[first_id]["properties"]["base_line"] == [15, 70, 180, 255]
     assert by_id[second_id]["properties"]["base_fill"] == [190, 198, 210, 65]
     assert captured["data"]["scope_outline"] is not None
     assert captured["data"]["scope_outline"]["type"] in {
