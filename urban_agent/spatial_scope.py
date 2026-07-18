@@ -12,6 +12,7 @@ from dataclasses import dataclass, replace
 from pathlib import Path
 
 from .schema import Plan
+from .spatial_adapter import SpatialDataset
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -504,7 +505,32 @@ def resolve_scope_with_rules(
     scope: SpatialScope,
     rules: SpatialScopeRules,
 ) -> ScopeResolution:
-    """Resolve using an in-memory rules object, suitable for live UI previews."""
+    """Backward-compatible ``Plan`` entry point used by the existing app."""
+    from shapely.geometry import mapping
+
+    plan_geojson = plan.to_dict()
+    dataset = SpatialDataset(
+        boundary_geometry=mapping(_load_boundary(rules)),
+        parcel_geometries={
+            str(feature["id"]): feature["geometry"]
+            for feature in plan_geojson["features"]
+        },
+        parcel_properties={
+            str(feature["id"]): dict(feature.get("properties") or {})
+            for feature in plan_geojson["features"]
+        },
+        source=str(rules.boundary_path),
+        metadata=dict(plan_geojson.get("metadata") or {}),
+    )
+    return resolve_scope_dataset(dataset, scope, rules)
+
+
+def resolve_scope_dataset(
+    dataset: SpatialDataset,
+    scope: SpatialScope,
+    rules: SpatialScopeRules,
+) -> ScopeResolution:
+    """Resolve any adapter-produced dataset without depending on ``Plan``."""
     from shapely import make_valid
     from shapely.geometry import mapping, shape
     from shapely.ops import transform
@@ -513,7 +539,11 @@ def resolve_scope_with_rules(
     if len(scope.terms) > rules.max_scope_depth:
         raise SpatialScopeError(f"空间范围最多支持 {rules.max_scope_depth} 层")
 
-    boundary = _load_boundary(rules)
+    boundary = shape(dataset.boundary_geometry)
+    if boundary.is_empty or boundary.geom_type not in {"Polygon", "MultiPolygon"}:
+        raise SpatialScopeError("适配后的边界必须是非空面几何")
+    if not boundary.is_valid:
+        raise SpatialScopeError("适配后的边界几何无效")
     to_m, to_deg = _projectors(boundary)
     boundary_m = transform(to_m, boundary)
     partition_context = (
@@ -534,8 +564,8 @@ def resolve_scope_with_rules(
         if scope.mode == "intersection"
     }
     matched: list[str] = []
-    for parcel_id, parcel in plan.parcels.items():
-        parcel_m = transform(to_m, shape(parcel.geometry))
+    for parcel_id, parcel_geometry in dataset.parcel_geometries.items():
+        parcel_m = transform(to_m, shape(parcel_geometry))
         if scope.mode == "intersection":
             checks = []
             for term in scope.terms:
@@ -560,7 +590,7 @@ def resolve_scope_with_rules(
         scope=scope,
         target_parcel_ids=tuple(matched),
         rules_version=rules.version,
-        boundary_source=str(rules.boundary_path),
+        boundary_source=dataset.source,
         rule_parameters={
             "ratios": dict(rules.ratios),
             "waterfront_distance_m": rules.waterfront_distance_m,
