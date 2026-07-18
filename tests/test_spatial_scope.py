@@ -1,10 +1,13 @@
+import json
 from pathlib import Path
 
 import pytest
 
 from urban_agent.schema import Plan
 from urban_agent.spatial_scope import (
+    SpatialScope,
     SpatialScopeError,
+    centerline_guide_geometry,
     load_scope_rules,
     override_scope_rules,
     parse_spatial_scope,
@@ -21,6 +24,37 @@ REAL_PLAN = ROOT / "data" / "real" / "fuxing_building_parcel_plan.geojson"
 @pytest.fixture(scope="module")
 def plan():
     return Plan.from_geojson(REAL_PLAN)
+
+
+@pytest.fixture(scope="module")
+def centerline_rules():
+    return override_scope_rules(load_scope_rules(), partition_mode="centerline")
+
+
+@pytest.fixture(scope="module")
+def centerline_resolved(plan, centerline_rules):
+    scopes = {
+        "north": ("single", ("north",)),
+        "south": ("single", ("south",)),
+        "east": ("single", ("east",)),
+        "west": ("single", ("west",)),
+        "middle": ("single", ("middle",)),
+        "north_tip": ("single", ("north_tip",)),
+        "south_tip": ("single", ("south_tip",)),
+        "waterfront": ("single", ("waterfront",)),
+        "east_waterfront": ("intersection", ("east", "waterfront")),
+        "middle_west": ("nested", ("middle", "west")),
+        "west_middle": ("nested", ("west", "middle")),
+        "southeast": ("nested", ("east", "south")),
+    }
+    return {
+        name: resolve_scope_with_rules(
+            plan,
+            SpatialScope(mode, terms, name),
+            centerline_rules,
+        )
+        for name, (mode, terms) in scopes.items()
+    }
 
 
 @pytest.fixture(scope="module")
@@ -143,3 +177,118 @@ def test_rules_are_only_persisted_by_explicit_save(tmp_path):
     reloaded = load_scope_rules(target)
     assert reloaded.version == "preview"
     assert reloaded.waterfront_distance_m == 20
+
+
+def test_legacy_rules_default_to_bbox_and_preserve_real_counts(plan):
+    rules = load_scope_rules()
+    assert len(plan.parcels) == 820
+    assert rules.partition_mode == "bbox"
+    expected = {
+        "north": 61,
+        "south": 425,
+        "east": 148,
+        "west": 84,
+        "middle": 248,
+        "north_tip": 5,
+        "south_tip": 71,
+        "waterfront": 153,
+    }
+    for term, count in expected.items():
+        result = resolve_scope_with_rules(
+            plan,
+            SpatialScope("single", (term,), term),
+            rules,
+        )
+        assert len(result.target_parcel_ids) == count
+
+
+def test_partition_mode_round_trips_through_rules_file(tmp_path, centerline_rules):
+    target = tmp_path / "centerline-rules.json"
+    save_scope_rules(centerline_rules, target)
+    raw = json.loads(target.read_text(encoding="utf-8"))
+    assert raw["partition_mode"] == "centerline"
+    assert load_scope_rules(target).partition_mode == "centerline"
+
+
+def test_centerline_has_fixed_stations_and_auditable_metadata(centerline_rules):
+    from shapely.geometry import Point, shape
+    from shapely.ops import unary_union
+
+    guides = centerline_guide_geometry(centerline_rules)
+    assert guides["algorithm"] == "centerline-v1"
+    assert guides["station_count"] == 101
+    assert guides["correction_passes"] == 1
+    assert guides["centerline_length_m"] > 0
+    assert guides["centerline"]["type"] == "LineString"
+    assert guides["cross_sections"]
+    raw = json.loads(centerline_rules.boundary_path.read_text(encoding="utf-8-sig"))
+    boundary = unary_union([shape(feature["geometry"]) for feature in raw["features"]])
+    coordinates = guides["centerline"]["coordinates"]
+    boundary_y = [point[1] for point in boundary.exterior.coords]
+    assert coordinates[0][1] == pytest.approx(min(boundary_y))
+    assert coordinates[-1][1] == pytest.approx(max(boundary_y))
+    assert all(boundary.covers(Point(point)) for point in coordinates)
+
+
+def test_centerline_east_west_ratios_use_the_full_local_width(centerline_rules):
+    from urban_agent.centerline_partition import ScopeWindow, nested_window
+
+    root = ScopeWindow()
+    west = nested_window(root, "west", centerline_rules.ratios)
+    east = nested_window(root, "east", centerline_rules.ratios)
+    assert west.q0 == 0
+    assert west.q1 == centerline_rules.ratios["west"]
+    assert east.q0 == 1 - centerline_rules.ratios["east"]
+    assert east.q1 == 1
+
+
+def test_centerline_regions_are_valid_and_middle_is_remaining(centerline_resolved):
+    from shapely.geometry import shape
+
+    for result in centerline_resolved.values():
+        assert shape(result.geometry).is_valid
+        assert result.geometry["type"] in {"Polygon", "MultiPolygon"}
+        assert result.rule_parameters["partition_algorithm"] == "centerline-v1"
+        assert result.rule_parameters["centerline_intervals"] == 100
+    middle = set(centerline_resolved["middle"].target_parcel_ids)
+    edges = set().union(*(
+        set(centerline_resolved[name].target_parcel_ids)
+        for name in ("north", "south", "east", "west")
+    ))
+    assert middle
+    assert middle.isdisjoint(edges)
+
+
+def test_centerline_tips_intersections_and_nested_scopes(centerline_resolved):
+    assert set(centerline_resolved["north_tip"].target_parcel_ids) <= set(
+        centerline_resolved["north"].target_parcel_ids
+    )
+    assert set(centerline_resolved["south_tip"].target_parcel_ids) <= set(
+        centerline_resolved["south"].target_parcel_ids
+    )
+    assert set(centerline_resolved["east_waterfront"].target_parcel_ids) == (
+        set(centerline_resolved["east"].target_parcel_ids)
+        & set(centerline_resolved["waterfront"].target_parcel_ids)
+    )
+    assert set(centerline_resolved["middle_west"].target_parcel_ids) <= set(
+        centerline_resolved["middle"].target_parcel_ids
+    )
+    assert set(centerline_resolved["west_middle"].target_parcel_ids) <= set(
+        centerline_resolved["west"].target_parcel_ids
+    )
+    assert set(centerline_resolved["southeast"].target_parcel_ids) <= set(
+        centerline_resolved["east"].target_parcel_ids
+    )
+
+
+def test_waterfront_geometry_is_identical_between_partition_modes(
+    plan,
+    centerline_rules,
+):
+    from shapely.geometry import shape
+
+    scope = SpatialScope("single", ("waterfront",), "waterfront")
+    bbox = resolve_scope_with_rules(plan, scope, load_scope_rules())
+    centerline = resolve_scope_with_rules(plan, scope, centerline_rules)
+    assert shape(bbox.geometry).equals(shape(centerline.geometry))
+    assert bbox.target_parcel_ids == centerline.target_parcel_ids

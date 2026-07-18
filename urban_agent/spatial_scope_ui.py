@@ -11,6 +11,7 @@ from .schema import LANDUSE_CODES, Plan
 from .spatial_scope import (
     DEFAULT_RULES_PATH,
     SpatialScopeError,
+    centerline_guide_geometry,
     load_scope_rules,
     override_scope_rules,
     parse_spatial_scope,
@@ -50,7 +51,7 @@ def _geometry_points(geometry: dict) -> list[tuple[float, float]]:
     return points
 
 
-def _map_layers(plan: Plan, resolution, boundary_raw: dict):
+def _map_layers(plan: Plan, resolution, boundary_raw: dict, guides: dict | None = None):
     selected_ids = set(resolution.target_parcel_ids)
     background_features = []
     selected_features = []
@@ -85,7 +86,7 @@ def _map_layers(plan: Plan, resolution, boundary_raw: dict):
         props["label"] = "复兴岛边界"
         props["line"] = [220, 38, 38, 255]
 
-    return [
+    layers = [
         pdk.Layer(
             "GeoJsonLayer",
             {"type": "FeatureCollection", "features": background_features},
@@ -116,6 +117,42 @@ def _map_layers(plan: Plan, resolution, boundary_raw: dict):
             get_line_color="properties.line",
             line_width_min_pixels=2,
         ),
+    ]
+    if guides:
+        cross_section_features = [
+            {
+                "type": "Feature",
+                "geometry": geometry,
+                "properties": {"label": "中心线校正截面", "line": [0, 145, 170, 210]},
+            }
+            for geometry in guides["cross_sections"]
+        ]
+        centerline_feature = {
+            "type": "Feature",
+            "geometry": guides["centerline"],
+            "properties": {"label": "岛体曲线中心线", "line": [139, 61, 190, 255]},
+        }
+        layers.extend([
+            pdk.Layer(
+                "GeoJsonLayer",
+                {"type": "FeatureCollection", "features": cross_section_features},
+                pickable=True,
+                stroked=True,
+                filled=False,
+                get_line_color="properties.line",
+                line_width_min_pixels=2,
+            ),
+            pdk.Layer(
+                "GeoJsonLayer",
+                {"type": "FeatureCollection", "features": [centerline_feature]},
+                pickable=True,
+                stroked=True,
+                filled=False,
+                get_line_color="properties.line",
+                line_width_min_pixels=4,
+            ),
+        ])
+    layers.append(
         pdk.Layer(
             "GeoJsonLayer",
             {"type": "FeatureCollection", "features": boundary_features},
@@ -124,11 +161,17 @@ def _map_layers(plan: Plan, resolution, boundary_raw: dict):
             filled=False,
             get_line_color="properties.line",
             line_width_min_pixels=3,
-        ),
-    ]
+        )
+    )
+    return layers
 
 
-def _render_map(plan: Plan, resolution, boundary_raw: dict) -> None:
+def _render_map(
+    plan: Plan,
+    resolution,
+    boundary_raw: dict,
+    guides: dict | None = None,
+) -> None:
     boundary_points = [
         point
         for feature in boundary_raw.get("features", [])
@@ -144,19 +187,29 @@ def _render_map(plan: Plan, resolution, boundary_raw: dict) -> None:
             zoom=13.7,
             pitch=0,
         ),
-        layers=_map_layers(plan, resolution, boundary_raw),
+        layers=_map_layers(plan, resolution, boundary_raw, guides),
         tooltip={"text": "{label}"},
     )
-    st.pydeck_chart(deck, use_container_width=True)
+    st.pydeck_chart(deck, width="stretch")
 
 
-def _ratio_controls(saved_rules):
+def _ratio_controls(saved_rules, partition_mode: str):
     ratios = saved_rules.ratios
     st.sidebar.subheader("方向分区比例")
-    north = st.sidebar.slider("北部（占父区域高度）", 5, 49, round(ratios["north"] * 100), 1)
-    south = st.sidebar.slider("南部（占父区域高度）", 5, 49, round(ratios["south"] * 100), 1)
-    east = st.sidebar.slider("东部（占父区域宽度）", 5, 49, round(ratios["east"] * 100), 1)
-    west = st.sidebar.slider("西部（占父区域宽度）", 5, 49, round(ratios["west"] * 100), 1)
+    if partition_mode == "centerline":
+        north_label = "北部（占父范围中心线长度）"
+        south_label = "南部（占父范围中心线长度）"
+        east_label = "东部（占局部东西截面宽度）"
+        west_label = "西部（占局部东西截面宽度）"
+    else:
+        north_label = "北部（占父区域高度）"
+        south_label = "南部（占父区域高度）"
+        east_label = "东部（占父区域宽度）"
+        west_label = "西部（占父区域宽度）"
+    north = st.sidebar.slider(north_label, 5, 49, round(ratios["north"] * 100), 1)
+    south = st.sidebar.slider(south_label, 5, 49, round(ratios["south"] * 100), 1)
+    east = st.sidebar.slider(east_label, 5, 49, round(ratios["east"] * 100), 1)
+    west = st.sidebar.slider(west_label, 5, 49, round(ratios["west"] * 100), 1)
     north_tip = st.sidebar.slider(
         "北岛尖（包含于北部）",
         1,
@@ -196,7 +249,20 @@ def render_spatial_scope_calibration() -> None:
         return
     plan = _load_plan(str(plan_file), plan_file.stat().st_mtime_ns)
 
-    ratios = _ratio_controls(saved_rules)
+    partition_labels = {
+        "bbox": "经纬度外包框",
+        "centerline": "岛体曲线中心线",
+    }
+    partition_mode = st.sidebar.segmented_control(
+        "方位划分方式",
+        options=list(partition_labels),
+        default=saved_rules.partition_mode,
+        format_func=partition_labels.get,
+        required=True,
+        key="spatial_partition_mode",
+        width="stretch",
+    )
+    ratios = _ratio_controls(saved_rules, partition_mode)
     waterfront_distance = st.sidebar.slider(
         "滨水带向内距离（米）",
         1,
@@ -212,6 +278,7 @@ def render_spatial_scope_calibration() -> None:
             ratios=ratios,
             waterfront_distance_m=waterfront_distance,
             version=version.strip() or saved_rules.version,
+            partition_mode=partition_mode,
         )
     except SpatialScopeError as exc:
         st.error(f"参数不合法：{exc}")
@@ -237,6 +304,11 @@ def render_spatial_scope_calibration() -> None:
             st.info("请输入一个可识别的方位描述。")
             return
         resolution = resolve_scope_with_rules(plan, scope, preview_rules)
+        guides = (
+            centerline_guide_geometry(preview_rules)
+            if preview_rules.partition_mode == "centerline"
+            else None
+        )
     except SpatialScopeError as exc:
         st.error(f"无法解析：{exc}")
         return
@@ -246,7 +318,7 @@ def render_spatial_scope_calibration() -> None:
     col1.metric("总地块", len(plan.parcels))
     col2.metric("命中地块", len(resolution.target_parcel_ids))
     col3.metric("解析方式", mode_labels[scope.mode])
-    col4.metric("规则版本", preview_rules.version)
+    col4.metric("划分方式", partition_labels[preview_rules.partition_mode])
     st.code(
         json.dumps(
             {"mode": scope.mode, "terms": list(scope.terms)},
@@ -256,8 +328,17 @@ def render_spatial_scope_calibration() -> None:
     )
 
     boundary_raw = json.loads(preview_rules.boundary_path.read_text(encoding="utf-8-sig"))
-    _render_map(plan, resolution, boundary_raw)
-    st.caption("图例：橙色＝命中地块　蓝色＝空间范围　灰色＝其他地块　红线＝复兴岛边界")
+    _render_map(plan, resolution, boundary_raw, guides)
+    legend = "图例：橙色＝命中地块　蓝色＝空间范围　灰色＝其他地块　红线＝复兴岛边界"
+    if guides:
+        legend += "　紫线＝中心线　青线＝抽样截面"
+    st.caption(legend)
+    if guides:
+        st.info(
+            f"当前算法：{guides['algorithm']}；"
+            f"中心线 {guides['station_count']} 个点，长度约 "
+            f"{guides['centerline_length_m']:.1f} 米；固定执行一次垂直截面校正。"
+        )
 
     download_col, trace_col = st.columns(2)
     scope_geojson = {
@@ -279,20 +360,20 @@ def render_spatial_scope_calibration() -> None:
         json.dumps(scope_geojson, ensure_ascii=False, indent=2),
         file_name="spatial_scope_preview.geojson",
         mime="application/geo+json",
-        use_container_width=True,
+        width="stretch",
     )
     trace_col.download_button(
         "下载解析记录 JSON",
         json.dumps(resolution.to_dict(), ensure_ascii=False, indent=2),
         file_name="spatial_scope_trace.json",
         mime="application/json",
-        use_container_width=True,
+        width="stretch",
     )
 
     with st.expander("查看命中地块与追溯记录"):
         st.dataframe(
             [{"地块 ID": parcel_id} for parcel_id in resolution.target_parcel_ids],
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
         st.json(resolution.to_dict(), expanded=False)

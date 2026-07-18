@@ -22,6 +22,7 @@ DIRECTIONAL_TERMS = {
 }
 VALID_TERMS = DIRECTIONAL_TERMS | {"waterfront"}
 VALID_MODES = {"single", "intersection", "nested"}
+VALID_PARTITION_MODES = {"bbox", "centerline"}
 
 
 class SpatialScopeError(ValueError):
@@ -65,6 +66,7 @@ class SpatialScopeRules:
     waterfront_distance_m: float
     max_scope_depth: int
     membership: dict[str, str]
+    partition_mode: str = "bbox"
 
 
 @dataclass(frozen=True)
@@ -207,6 +209,11 @@ def validate_scope_rules(rules: SpatialScopeRules) -> SpatialScopeRules:
         raise SpatialScopeError("普通区域当前只支持 centroid_within 判定")
     if rules.membership.get("waterfront") != "geometry_intersects":
         raise SpatialScopeError("滨水区域当前只支持 geometry_intersects 判定")
+    if rules.partition_mode not in VALID_PARTITION_MODES:
+        raise SpatialScopeError(
+            f"未知方位划分模式：{rules.partition_mode}；"
+            f"可选值为 {sorted(VALID_PARTITION_MODES)}"
+        )
     return rules
 
 
@@ -225,6 +232,7 @@ def load_scope_rules(path: str | Path | None = None) -> SpatialScopeRules:
         waterfront_distance_m=float(raw["waterfront_distance_m"]),
         max_scope_depth=int(raw.get("max_scope_depth", 2)),
         membership=dict(raw.get("membership", {})),
+        partition_mode=str(raw.get("partition_mode", "bbox")),
     ))
 
 
@@ -234,6 +242,7 @@ def override_scope_rules(
     ratios: dict[str, float] | None = None,
     waterfront_distance_m: float | None = None,
     version: str | None = None,
+    partition_mode: str | None = None,
 ) -> SpatialScopeRules:
     """Create a validated preview copy without changing the saved JSON file."""
     preview = replace(
@@ -245,6 +254,9 @@ def override_scope_rules(
             else rules.waterfront_distance_m
         ),
         version=version if version is not None else rules.version,
+        partition_mode=(
+            partition_mode if partition_mode is not None else rules.partition_mode
+        ),
     )
     return validate_scope_rules(preview)
 
@@ -262,6 +274,7 @@ def scope_rules_to_dict(rules: SpatialScopeRules) -> dict:
         "waterfront_distance_m": rules.waterfront_distance_m,
         "max_scope_depth": rules.max_scope_depth,
         "membership": dict(rules.membership),
+        "partition_mode": rules.partition_mode,
     }
 
 
@@ -305,6 +318,24 @@ def _load_boundary(rules: SpatialScopeRules):
     return unary_union([shape(feature["geometry"]) for feature in features])
 
 
+def _polygonal_only(geometry):
+    """Discard zero-area artifacts that may appear after coordinate transforms."""
+    from shapely.geometry import Polygon
+    from shapely.ops import unary_union
+
+    if geometry.geom_type == "Polygon":
+        return geometry
+    if geometry.geom_type == "MultiPolygon":
+        return geometry
+    polygon_parts = []
+    if hasattr(geometry, "geoms"):
+        for part in geometry.geoms:
+            polygon = _polygonal_only(part)
+            if not polygon.is_empty:
+                polygon_parts.append(polygon)
+    return unary_union(polygon_parts) if polygon_parts else Polygon()
+
+
 def _partition_region(parent, rules: SpatialScopeRules) -> dict[str, object]:
     from shapely.geometry import box
     from shapely.ops import unary_union
@@ -339,36 +370,124 @@ def _waterfront_region(boundary_m, rules: SpatialScopeRules):
     return boundary_m if inner.is_empty else boundary_m.difference(inner)
 
 
-def _single_region(boundary_m, term: str, rules: SpatialScopeRules):
+def _build_partition_context(boundary_m, rules: SpatialScopeRules):
+    if rules.partition_mode == "bbox":
+        return None
+    from .centerline_partition import (
+        CenterlinePartitionError,
+        build_centerline_frame,
+    )
+
+    try:
+        return build_centerline_frame(boundary_m)
+    except CenterlinePartitionError as exc:
+        raise SpatialScopeError(f"中心线方位划分失败：{exc}") from exc
+
+
+def _partition_metadata(rules: SpatialScopeRules) -> dict:
+    if rules.partition_mode == "bbox":
+        return {"partition_mode": "bbox", "partition_algorithm": "bbox-v1"}
+    from .centerline_partition import (
+        ALGORITHM_ID,
+        CENTERLINE_INTERVALS,
+        CORRECTION_PASSES,
+        SMOOTHING_PASSES,
+    )
+
+    return {
+        "partition_mode": "centerline",
+        "partition_algorithm": ALGORITHM_ID,
+        "centerline_intervals": CENTERLINE_INTERVALS,
+        "centerline_smoothing_passes": SMOOTHING_PASSES,
+        "centerline_correction_passes": CORRECTION_PASSES,
+    }
+
+
+def _single_region(
+    boundary_m,
+    term: str,
+    rules: SpatialScopeRules,
+    partition_context=None,
+):
     if term == "waterfront":
         return _waterfront_region(boundary_m, rules)
+    if rules.partition_mode == "centerline":
+        from .centerline_partition import resolve_directional_terms
+
+        return resolve_directional_terms(partition_context, (term,), rules.ratios)
     return _partition_region(boundary_m, rules)[term]
 
 
-def _resolve_geometry(boundary_m, scope: SpatialScope, rules: SpatialScopeRules):
+def _resolve_geometry(
+    boundary_m,
+    scope: SpatialScope,
+    rules: SpatialScopeRules,
+    partition_context=None,
+):
     trace: list[dict] = []
     if scope.mode == "single":
         term = scope.terms[0]
-        region = _single_region(boundary_m, term, rules)
+        region = _single_region(boundary_m, term, rules, partition_context)
         trace.append({"input": "island", "operation": term, "result": term})
         return region, trace
 
     if scope.mode == "intersection":
-        left = _single_region(boundary_m, scope.terms[0], rules)
-        right = _single_region(boundary_m, scope.terms[1], rules)
+        left = _single_region(boundary_m, scope.terms[0], rules, partition_context)
+        right = _single_region(boundary_m, scope.terms[1], rules, partition_context)
         trace.append({"input": "island", "operation": scope.terms[0], "result": scope.terms[0]})
         trace.append({"input": "island", "operation": scope.terms[1], "result": scope.terms[1]})
         trace.append({"operation": "intersection", "inputs": list(scope.terms)})
         return left.intersection(right), trace
 
-    current = boundary_m
+    if rules.partition_mode == "centerline":
+        from .centerline_partition import resolve_directional_terms
+
+        current = resolve_directional_terms(partition_context, scope.terms, rules.ratios)
+    else:
+        current = boundary_m
     parent_name = "island"
     for term in scope.terms:
-        current = _partition_region(current, rules)[term]
+        if rules.partition_mode == "bbox":
+            current = _partition_region(current, rules)[term]
         result_name = f"{parent_name}.{term}"
         trace.append({"input": parent_name, "operation": term, "result": result_name})
         parent_name = result_name
     return current, trace
+
+
+def centerline_guide_geometry(rules: SpatialScopeRules) -> dict:
+    """Return the corrected centerline and sampled cross-sections in GeoJSON."""
+    from shapely.geometry import mapping
+    from shapely.ops import transform
+
+    from .centerline_partition import (
+        ALGORITHM_ID,
+        CENTERLINE_INTERVALS,
+        CORRECTION_PASSES,
+        SMOOTHING_PASSES,
+        CenterlinePartitionError,
+        build_centerline_frame,
+    )
+
+    boundary = _load_boundary(rules)
+    to_m, to_deg = _projectors(boundary)
+    try:
+        frame = build_centerline_frame(transform(to_m, boundary))
+    except CenterlinePartitionError as exc:
+        raise SpatialScopeError(f"中心线方位划分失败：{exc}") from exc
+    return {
+        "algorithm": ALGORITHM_ID,
+        "centerline_intervals": CENTERLINE_INTERVALS,
+        "smoothing_passes": SMOOTHING_PASSES,
+        "correction_passes": CORRECTION_PASSES,
+        "centerline_length_m": frame.length_m,
+        "station_count": len(frame.stations),
+        "centerline": mapping(transform(to_deg, frame.centerline)),
+        "cross_sections": [
+            mapping(transform(to_deg, line))
+            for line in frame.sampled_cross_sections(step=10)
+        ],
+    }
 
 
 def resolve_scope(
@@ -386,6 +505,7 @@ def resolve_scope_with_rules(
     rules: SpatialScopeRules,
 ) -> ScopeResolution:
     """Resolve using an in-memory rules object, suitable for live UI previews."""
+    from shapely import make_valid
     from shapely.geometry import mapping, shape
     from shapely.ops import transform
 
@@ -396,10 +516,20 @@ def resolve_scope_with_rules(
     boundary = _load_boundary(rules)
     to_m, to_deg = _projectors(boundary)
     boundary_m = transform(to_m, boundary)
-    region_m, trace = _resolve_geometry(boundary_m, scope, rules)
+    partition_context = (
+        _build_partition_context(boundary_m, rules)
+        if any(term in DIRECTIONAL_TERMS for term in scope.terms)
+        else None
+    )
+    region_m, trace = _resolve_geometry(
+        boundary_m,
+        scope,
+        rules,
+        partition_context,
+    )
 
     root_regions = {
-        term: _single_region(boundary_m, term, rules)
+        term: _single_region(boundary_m, term, rules, partition_context)
         for term in scope.terms
         if scope.mode == "intersection"
     }
@@ -422,6 +552,10 @@ def resolve_scope_with_rules(
             matched.append(parcel_id)
 
     region_deg = transform(to_deg, region_m)
+    if not region_deg.is_valid:
+        region_deg = _polygonal_only(make_valid(region_deg))
+    if region_deg.is_empty or not region_deg.is_valid:
+        raise SpatialScopeError("空间范围转换为经纬度后没有形成有效面域")
     return ScopeResolution(
         scope=scope,
         target_parcel_ids=tuple(matched),
@@ -431,6 +565,7 @@ def resolve_scope_with_rules(
             "ratios": dict(rules.ratios),
             "waterfront_distance_m": rules.waterfront_distance_m,
             "max_scope_depth": rules.max_scope_depth,
+            **_partition_metadata(rules),
         },
         membership=dict(rules.membership),
         geometry=mapping(region_deg),
