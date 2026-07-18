@@ -62,7 +62,7 @@ def test_renderer_tags_scope_members_without_mutating_source(monkeypatch):
     by_id = {str(feature["id"]): feature for feature in features}
     assert by_id[first_id]["properties"]["scope_member"] is True
     assert by_id[second_id]["properties"]["scope_member"] is False
-    assert by_id[first_id]["properties"]["base_fill"] == [45, 126, 247, 155]
+    assert by_id[first_id]["properties"]["base_fill"] == [45, 126, 247, 55]
     assert by_id[first_id]["properties"]["base_line"] == [15, 70, 180, 255]
     assert by_id[second_id]["properties"]["base_fill"] == [190, 198, 210, 65]
     assert captured["data"]["scope_outline"] is not None

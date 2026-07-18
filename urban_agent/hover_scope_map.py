@@ -421,7 +421,7 @@ def render_hover_scope_map(
         properties["scope_member"] = belongs
         properties["parcel_id"] = parcel_id
         properties["base_fill"] = (
-            [45, 126, 247, 155] if belongs else [190, 198, 210, 65]
+            [45, 126, 247, 55] if belongs else [190, 198, 210, 65]
         )
         properties["base_line"] = (
             [15, 70, 180, 255] if belongs else [135, 145, 160, 110]

@@ -63,7 +63,7 @@ def _map_layers(plan: Plan, resolution, boundary_raw: dict, guides: dict | None 
             f"{parcel_id} · {LANDUSE_CODES.get(props.get('landuse'), props.get('landuse'))}"
         )
         if parcel_id in selected_ids:
-            props["fill"] = [45, 126, 247, 155]
+            props["fill"] = [45, 126, 247, 55]
             props["line"] = [15, 70, 180, 255]
             selected_features.append(feature)
         else:
@@ -239,7 +239,8 @@ def render_spatial_scope_calibration() -> None:
     st.title("空间范围标定")
     st.caption(
         "独立预览页面：方位范围作为地块属性保存，不持续改变地块外观；"
-        "命中地块使用蓝色，与橙色建筑区分；鼠标悬停时整组范围会高亮并临时抬升。"
+        "命中地块使用淡蓝色透明填充和深蓝色完整描边，与橙色建筑区分；"
+        "鼠标悬停时整组范围会高亮并临时抬升。"
         "滑块只改变当前预览，点击保存后才会写入规则 JSON。"
     )
 
@@ -337,7 +338,8 @@ def render_spatial_scope_calibration() -> None:
         guides=guides,
     )
     legend = (
-        "图例：蓝色＝命中地块　橙色＝建筑　灰色＝其他地块　红线＝复兴岛边界　"
+        "图例：淡蓝色填充＋深蓝描边＝命中地块　橙色＝建筑　"
+        "灰色＝其他地块　红线＝复兴岛边界　"
         "悬停蓝色地块＝整组边缘高亮并抬升"
     )
     if guides:
