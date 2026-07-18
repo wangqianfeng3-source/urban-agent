@@ -148,8 +148,44 @@ function makeLayers(deckLib, data, scopeHovered, onHover) {
   const layers = [makeTileLayer(deckLib)]
 
   layers.push(new deckLib.GeoJsonLayer({
-    id: "scope-parcels",
+    id: "parcel-base",
     data: data.parcels,
+    pickable: false,
+    filled: true,
+    stroked: true,
+    getFillColor: [190, 198, 210, 20],
+    getLineColor: [135, 145, 160, 105],
+    getLineWidth: 1,
+    lineWidthUnits: "pixels"
+  }))
+
+  if (data.scope_geometry) {
+    layers.push(new deckLib.GeoJsonLayer({
+      id: "scope-zone",
+      data: {
+        type: "Feature",
+        id: "scope-preview",
+        geometry: addElevation(data.scope_geometry, scopeHovered ? liftMeters : 0),
+        properties: {scope_member: true, parcel_id: "当前方位范围"}
+      },
+      pickable: true,
+      autoHighlight: false,
+      filled: true,
+      stroked: true,
+      extruded: false,
+      getFillColor: scopeHovered ? [72, 149, 239, 72] : [72, 149, 239, 42],
+      getLineColor: scopeHovered ? [70, 230, 255, 255] : [45, 126, 247, 210],
+      getLineWidth: scopeHovered ? 4 : 2.5,
+      lineWidthUnits: "pixels",
+      lineJointRounded: true,
+      lineCapRounded: true,
+      onHover
+    }))
+  }
+
+  layers.push(new deckLib.GeoJsonLayer({
+    id: "scope-parcels",
+    data: data.selected_parcels,
     pickable: true,
     autoHighlight: false,
     filled: true,
@@ -162,15 +198,14 @@ function makeLayers(deckLib, data, scopeHovered, onHover) {
       shininess: 22,
       specularColor: [90, 95, 105]
     },
-    getFillColor: feature => feature.properties?.base_fill ?? [190, 198, 210, 65],
-    getLineColor: feature => feature.properties?.base_line ?? [135, 145, 160, 110],
-    getLineWidth: feature => feature.properties?.scope_member ? 2.5 : 1,
+    getFillColor: [72, 149, 239, 52],
+    getLineColor: [15, 70, 180, 255],
+    getLineWidth: 2.5,
     lineWidthUnits: "pixels",
     lineJointRounded: true,
     lineCapRounded: true,
     getElevation: feature => {
-      const belongs = Boolean(feature.properties?.scope_member)
-      return belongs && scopeHovered ? liftMeters : 0
+      return scopeHovered ? liftMeters : 0
     },
     updateTriggers: {getElevation: [scopeHovered]},
     transitions: {getElevation: {duration: transitionMs}},
@@ -353,7 +388,7 @@ export default function(component) {
 
 
 _HOVER_SCOPE_MAP = st.components.v2.component(
-    "urban_agent_hover_scope_map_v8",
+    "urban_agent_hover_scope_map_v9",
     html=_COMPONENT_HTML,
     css=_COMPONENT_CSS,
     js=_COMPONENT_JS,
@@ -397,6 +432,7 @@ def render_hover_scope_map(
     parcels: dict,
     target_parcel_ids: Iterable[str],
     boundary: dict,
+    scope_geometry: dict | None = None,
     guides: dict | None = None,
     height: int = 620,
     lift_meters: float = 8.0,
@@ -414,6 +450,7 @@ def render_hover_scope_map(
     target_ids = {str(parcel_id) for parcel_id in target_parcel_ids}
     parcel_data = json.loads(json.dumps(parcels))
     features = parcel_data.get("features", [])
+    selected_features = []
     for feature in features:
         parcel_id = str(feature.get("id"))
         properties = feature.setdefault("properties", {})
@@ -426,8 +463,19 @@ def render_hover_scope_map(
         properties["base_line"] = (
             [15, 70, 180, 255] if belongs else [135, 145, 160, 110]
         )
+        if belongs:
+            selected_features.append(feature)
 
-    scope_outline = _scope_outline_geometry(features, target_ids)
+    if scope_geometry:
+        scope_outline = json.loads(
+            json.dumps(mapping(shape(scope_geometry).boundary))
+        )
+    else:
+        scope_outline = _scope_outline_geometry(features, target_ids)
+    selected_parcels = {
+        "type": "FeatureCollection",
+        "features": selected_features,
+    }
 
     boundary_points = [
         point
@@ -443,6 +491,8 @@ def render_hover_scope_map(
         key=key,
         data={
             "parcels": parcel_data,
+            "selected_parcels": selected_parcels,
+            "scope_geometry": json.loads(json.dumps(scope_geometry)) if scope_geometry else None,
             "scope_outline": scope_outline,
             "boundary": boundary,
             "guides": guides,

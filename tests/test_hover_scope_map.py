@@ -17,11 +17,14 @@ def test_component_uses_client_side_hover_elevation_without_legacy_api():
     assert "transitions" in script
     assert "scopeHovered" in script
     assert 'id: "scope-outline"' in script
+    assert 'id: "parcel-base"' in script
+    assert 'id: "scope-zone"' in script
+    assert "data: data.selected_parcels" in script
     assert "stroked: true" in script
-    assert "feature.properties?.scope_member ? 2.5 : 1" in script
+    assert "getLineWidth: 2.5" in script
     assert 'lineWidthUnits: "pixels"' in script
     assert "scopeHovered ? 6 : 4" in script
-    assert "belongs && scopeHovered ? liftMeters : 0" in script
+    assert "return scopeHovered ? liftMeters : 0" in script
     assert "scopeHovered ? [70, 230, 255, 255]" in script
     assert 'addEventListener("pointerleave"' in script
     assert 'removeEventListener("pointerleave"' in script
@@ -73,6 +76,31 @@ def test_renderer_tags_scope_members_without_mutating_source(monkeypatch):
     assert parcels["features"][0]["properties"] == original_first_properties
     assert captured["data"]["view_state"]["pitch"] > 0
     assert captured["height"] >= 520
+
+
+def test_renderer_keeps_scope_geometry_as_independent_filled_layer(monkeypatch):
+    boundary = json.loads(REAL_BOUNDARY.read_text(encoding="utf-8-sig"))
+    parcels = json.loads(REAL_PLAN.read_text(encoding="utf-8-sig"))
+    first_id = str(parcels["features"][0]["id"])
+    scope_geometry = boundary["features"][0]["geometry"]
+    captured = {}
+
+    monkeypatch.setattr(
+        hover_map,
+        "_HOVER_SCOPE_MAP",
+        lambda **kwargs: captured.update(kwargs) or "mounted",
+    )
+    result = hover_map.render_hover_scope_map(
+        parcels=parcels,
+        target_parcel_ids=[first_id],
+        boundary=boundary,
+        scope_geometry=scope_geometry,
+    )
+
+    assert result == "mounted"
+    assert len(captured["data"]["selected_parcels"]["features"]) == 1
+    assert captured["data"]["scope_geometry"] == scope_geometry
+    assert captured["data"]["scope_outline"] is not None
 
 
 def test_renderer_rejects_invalid_lift_settings(monkeypatch):

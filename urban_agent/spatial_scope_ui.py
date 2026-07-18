@@ -335,6 +335,7 @@ def render_spatial_scope_calibration() -> None:
         parcels=plan.to_dict(),
         target_parcel_ids=resolution.target_parcel_ids,
         boundary=boundary_raw,
+        scope_geometry=resolution.geometry,
         guides=guides,
     )
     legend = (
