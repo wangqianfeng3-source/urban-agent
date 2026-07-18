@@ -7,6 +7,7 @@ from pathlib import Path
 import pydeck as pdk
 import streamlit as st
 
+from .hover_scope_map import render_hover_scope_map
 from .schema import LANDUSE_CODES, Plan
 from .spatial_scope import (
     DEFAULT_RULES_PATH,
@@ -237,8 +238,8 @@ def _ratio_controls(saved_rules, partition_mode: str):
 def render_spatial_scope_calibration() -> None:
     st.title("空间范围标定")
     st.caption(
-        "独立预览页面：蓝色是解析范围，橙色是命中地块，灰色是未命中地块。"
-        "滑块只改变当前预览，点击保存后才会写入规则 JSON。"
+        "独立预览页面：方位范围作为地块属性保存，不持续改变地块外观；"
+        "鼠标悬停命中地块时会临时抬升。滑块只改变当前预览，点击保存后才会写入规则 JSON。"
     )
 
     saved_rules = load_scope_rules()
@@ -328,8 +329,13 @@ def render_spatial_scope_calibration() -> None:
     )
 
     boundary_raw = json.loads(preview_rules.boundary_path.read_text(encoding="utf-8-sig"))
-    _render_map(plan, resolution, boundary_raw, guides)
-    legend = "图例：橙色＝命中地块　蓝色＝空间范围　灰色＝其他地块　红线＝复兴岛边界"
+    render_hover_scope_map(
+        parcels=plan.to_dict(),
+        target_parcel_ids=resolution.target_parcel_ids,
+        boundary=boundary_raw,
+        guides=guides,
+    )
+    legend = "图例：灰色＝全部地块　红线＝复兴岛边界　悬停当前范围内地块＝轻微抬升"
     if guides:
         legend += "　紫线＝中心线　青线＝抽样截面"
     st.caption(legend)
