@@ -239,7 +239,8 @@ def render_spatial_scope_calibration() -> None:
     st.title("空间范围标定")
     st.caption(
         "独立预览页面：方位范围作为地块属性保存，不持续改变地块外观；"
-        "鼠标悬停命中地块时会临时抬升。滑块只改变当前预览，点击保存后才会写入规则 JSON。"
+        "命中地块保留橙色，鼠标悬停时整组范围会高亮并临时抬升。"
+        "滑块只改变当前预览，点击保存后才会写入规则 JSON。"
     )
 
     saved_rules = load_scope_rules()
@@ -335,7 +336,10 @@ def render_spatial_scope_calibration() -> None:
         boundary=boundary_raw,
         guides=guides,
     )
-    legend = "图例：灰色＝全部地块　红线＝复兴岛边界　悬停当前范围内地块＝轻微抬升"
+    legend = (
+        "图例：橙色＝命中地块　灰色＝其他地块　红线＝复兴岛边界　"
+        "悬停橙色地块＝整组边缘高亮并抬升"
+    )
     if guides:
         legend += "　紫线＝中心线　青线＝抽样截面"
     st.caption(legend)

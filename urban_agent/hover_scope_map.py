@@ -9,12 +9,14 @@ import json
 from collections.abc import Iterable
 
 import streamlit as st
+from shapely.geometry import mapping, shape
+from shapely.ops import unary_union
 
 
 _COMPONENT_HTML = """
 <div class="hover-map-shell" data-testid="hover-scope-map" data-hover-active="false">
   <div class="hover-map-canvas"></div>
-  <div class="hover-map-hint">悬停当前范围内的地块，可查看轻微抬升效果</div>
+  <div class="hover-map-hint">悬停橙色范围内任一地块，整组范围将高亮并抬升</div>
   <div class="hover-map-attribution">© CARTO · © OpenStreetMap contributors</div>
   <div class="hover-map-error" hidden></div>
 </div>
@@ -118,7 +120,29 @@ function featureId(feature) {
   return String(feature?.id ?? feature?.properties?.parcel_id ?? "")
 }
 
-function makeLayers(deckLib, data, hoveredId, onHover) {
+function addElevation(geometry, elevation) {
+  const liftCoordinates = coordinates => {
+    if (!Array.isArray(coordinates)) return coordinates
+    if (coordinates.length >= 2 &&
+        typeof coordinates[0] === "number" &&
+        typeof coordinates[1] === "number") {
+      return [coordinates[0], coordinates[1], elevation]
+    }
+    return coordinates.map(liftCoordinates)
+  }
+  if (geometry?.coordinates) {
+    return {...geometry, coordinates: liftCoordinates(geometry.coordinates)}
+  }
+  if (geometry?.geometries) {
+    return {
+      ...geometry,
+      geometries: geometry.geometries.map(item => addElevation(item, elevation))
+    }
+  }
+  return geometry
+}
+
+function makeLayers(deckLib, data, scopeHovered, onHover) {
   const liftMeters = Number(data.lift_meters ?? 8)
   const transitionMs = Number(data.transition_ms ?? 180)
   const layers = [makeTileLayer(deckLib)]
@@ -138,16 +162,38 @@ function makeLayers(deckLib, data, hoveredId, onHover) {
       shininess: 22,
       specularColor: [90, 95, 105]
     },
-    getFillColor: feature => feature.properties?.base_fill ?? [190, 198, 210, 145],
-    getLineColor: [118, 128, 142, 210],
+    getFillColor: feature => feature.properties?.base_fill ?? [190, 198, 210, 65],
+    getLineColor: feature => feature.properties?.base_line ?? [135, 145, 160, 110],
     getElevation: feature => {
       const belongs = Boolean(feature.properties?.scope_member)
-      return belongs && featureId(feature) === hoveredId ? liftMeters : 0
+      return belongs && scopeHovered ? liftMeters : 0
     },
-    updateTriggers: {getElevation: [hoveredId]},
+    updateTriggers: {getElevation: [scopeHovered]},
     transitions: {getElevation: {duration: transitionMs}},
     onHover
   }))
+
+  if (data.scope_outline) {
+    layers.push(new deckLib.GeoJsonLayer({
+      id: "scope-outline",
+      data: {
+        type: "Feature",
+        geometry: addElevation(
+          data.scope_outline,
+          scopeHovered ? liftMeters + 0.5 : 0
+        ),
+        properties: {}
+      },
+      pickable: false,
+      stroked: true,
+      filled: false,
+      getLineColor: scopeHovered ? [255, 224, 72, 255] : [180, 72, 0, 235],
+      getLineWidth: scopeHovered ? 6 : 2,
+      lineWidthUnits: "pixels",
+      lineJointRounded: true,
+      lineCapRounded: true
+    }))
+  }
 
   if (data.guides?.cross_sections?.length) {
     layers.push(new deckLib.GeoJsonLayer({
@@ -211,6 +257,7 @@ export default function(component) {
   let disposed = false
   let deckInstance = null
   let hoveredId = null
+  let scopeHovered = false
   let handlePointerLeave = null
   let resetHoverOutsideMap = null
 
@@ -220,13 +267,15 @@ export default function(component) {
     const redrawForHover = info => {
       const feature = info?.object
       const nextId = feature?.properties?.scope_member ? featureId(feature) : null
-      if (nextId === hoveredId) return
+      const nextScopeHovered = Boolean(nextId)
+      if (nextId === hoveredId && nextScopeHovered === scopeHovered) return
       hoveredId = nextId
+      scopeHovered = nextScopeHovered
       shell.dataset.hoveredParcelId = hoveredId ?? ""
-      shell.dataset.hoverActive = hoveredId ? "true" : "false"
+      shell.dataset.hoverActive = scopeHovered ? "true" : "false"
       deckInstance.setProps({
-        layers: makeLayers(deckLib, data, hoveredId, redrawForHover),
-        getCursor: () => hoveredId ? "pointer" : "grab"
+        layers: makeLayers(deckLib, data, scopeHovered, redrawForHover),
+        getCursor: () => scopeHovered ? "pointer" : "grab"
       })
     }
 
@@ -261,8 +310,8 @@ export default function(component) {
         minPitch: 0,
         maxPitch: 60
       },
-      layers: makeLayers(deckLib, data, hoveredId, redrawForHover),
-      getCursor: () => hoveredId ? "pointer" : "grab",
+      layers: makeLayers(deckLib, data, scopeHovered, redrawForHover),
+      getCursor: () => scopeHovered ? "pointer" : "grab",
       getTooltip: info => {
         if (!info?.object) return null
         const id = featureId(info.object)
@@ -300,7 +349,7 @@ export default function(component) {
 
 
 _HOVER_SCOPE_MAP = st.components.v2.component(
-    "urban_agent_hover_scope_map_v5",
+    "urban_agent_hover_scope_map_v6",
     html=_COMPONENT_HTML,
     css=_COMPONENT_CSS,
     js=_COMPONENT_JS,
@@ -326,6 +375,19 @@ def _geometry_points(geometry: dict) -> list[tuple[float, float]]:
     return points
 
 
+def _scope_outline_geometry(features: list[dict], target_ids: set[str]) -> dict | None:
+    selected_geometries = [
+        shape(feature["geometry"])
+        for feature in features
+        if str(feature.get("id")) in target_ids and feature.get("geometry")
+    ]
+    selected_geometries = [geometry for geometry in selected_geometries if not geometry.is_empty]
+    if not selected_geometries:
+        return None
+    outline = mapping(unary_union(selected_geometries).boundary)
+    return json.loads(json.dumps(outline))
+
+
 def render_hover_scope_map(
     *,
     parcels: dict,
@@ -347,12 +409,21 @@ def render_hover_scope_map(
 
     target_ids = {str(parcel_id) for parcel_id in target_parcel_ids}
     parcel_data = json.loads(json.dumps(parcels))
-    for feature in parcel_data.get("features", []):
+    features = parcel_data.get("features", [])
+    for feature in features:
         parcel_id = str(feature.get("id"))
         properties = feature.setdefault("properties", {})
-        properties["scope_member"] = parcel_id in target_ids
+        belongs = parcel_id in target_ids
+        properties["scope_member"] = belongs
         properties["parcel_id"] = parcel_id
-        properties["base_fill"] = [190, 198, 210, 155]
+        properties["base_fill"] = (
+            [255, 132, 32, 205] if belongs else [190, 198, 210, 65]
+        )
+        properties["base_line"] = (
+            [180, 72, 0, 255] if belongs else [135, 145, 160, 110]
+        )
+
+    scope_outline = _scope_outline_geometry(features, target_ids)
 
     boundary_points = [
         point
@@ -368,6 +439,7 @@ def render_hover_scope_map(
         key=key,
         data={
             "parcels": parcel_data,
+            "scope_outline": scope_outline,
             "boundary": boundary,
             "guides": guides,
             "lift_meters": float(lift_meters),
