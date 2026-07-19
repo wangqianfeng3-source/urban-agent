@@ -11,6 +11,8 @@ import json
 import re
 from dataclasses import dataclass, field
 
+from .spatial_scope import SpatialScope, parse_spatial_scope
+
 # 关键词 → (候选策略, 维度权重倾斜)。规划轨同学可以持续扩充这张表。
 _KEYWORD_MAP = [
     (("零碳", "低碳", "减排", "碳中和", "双碳"), "low_carbon", "能源与碳"),
@@ -29,6 +31,7 @@ class Objectives:
     dimension_weights: dict = field(default_factory=dict)  # 维度名 -> 权重倍率
     target_score: float = 75.0
     notes: str = ""
+    spatial_scope: SpatialScope | None = None
 
 
 def parse_requirement_text(text: str) -> Objectives:
@@ -41,6 +44,7 @@ def parse_requirement_text(text: str) -> Objectives:
                 obj.strategy_keys.append(strategy)
             if dim:
                 obj.dimension_weights[dim] = obj.dimension_weights.get(dim, 1.0) + 0.5
+    obj.spatial_scope = parse_spatial_scope(text)
     return obj
 
 
@@ -124,6 +128,7 @@ def _coerce_objectives(data: dict, original_text: str) -> Objectives:
         dimension_weights=weights,
         target_score=target_score,
         notes=notes,
+        spatial_scope=parse_spatial_scope(original_text),
     )
 
 

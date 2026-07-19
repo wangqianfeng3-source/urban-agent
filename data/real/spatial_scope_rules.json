@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "boundary_path": "data/real/fuxing_geojson/boundary.geojson",
+  "ratios": {
+    "north": 0.3,
+    "south": 0.38,
+    "east": 0.29,
+    "west": 0.25,
+    "north_tip": 0.1,
+    "south_tip": 0.1
+  },
+  "waterfront_distance_m": 20.0,
+  "max_scope_depth": 2,
+  "membership": {
+    "directional": "centroid_within",
+    "waterfront": "geometry_intersects"
+  }
+}
