@@ -21,9 +21,12 @@ def test_component_uses_client_side_hover_elevation_without_legacy_api():
     assert 'id: "scope-zone"' in script
     assert "data: data.selected_parcels" in script
     assert "stroked: true" in script
-    assert "getLineWidth: 2.5" in script
+    assert "getLineWidth: scopeHovered ? 3 : 2.5" in script
     assert 'lineWidthUnits: "pixels"' in script
     assert "scopeHovered ? 6 : 4" in script
+    assert "geometry: data.scope_geometry" in script
+    assert "getFillColor: scopeHovered ? [72, 149, 239, 92]" in script
+    assert "getFillColor: scopeHovered ? [72, 149, 239, 38]" in script
     assert "return scopeHovered ? liftMeters : 0" in script
     assert "scopeHovered ? [70, 230, 255, 255]" in script
     assert 'addEventListener("pointerleave"' in script

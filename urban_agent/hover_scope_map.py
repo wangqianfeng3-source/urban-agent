@@ -165,7 +165,7 @@ function makeLayers(deckLib, data, scopeHovered, onHover) {
       data: {
         type: "Feature",
         id: "scope-preview",
-        geometry: addElevation(data.scope_geometry, scopeHovered ? liftMeters : 0),
+        geometry: data.scope_geometry,
         properties: {scope_member: true, parcel_id: "当前方位范围"}
       },
       pickable: true,
@@ -173,7 +173,7 @@ function makeLayers(deckLib, data, scopeHovered, onHover) {
       filled: true,
       stroked: true,
       extruded: false,
-      getFillColor: scopeHovered ? [72, 149, 239, 72] : [72, 149, 239, 42],
+      getFillColor: scopeHovered ? [72, 149, 239, 38] : [72, 149, 239, 42],
       getLineColor: scopeHovered ? [70, 230, 255, 255] : [45, 126, 247, 210],
       getLineWidth: scopeHovered ? 4 : 2.5,
       lineWidthUnits: "pixels",
@@ -198,16 +198,21 @@ function makeLayers(deckLib, data, scopeHovered, onHover) {
       shininess: 22,
       specularColor: [90, 95, 105]
     },
-    getFillColor: [72, 149, 239, 52],
-    getLineColor: [15, 70, 180, 255],
-    getLineWidth: 2.5,
+    getFillColor: scopeHovered ? [72, 149, 239, 92] : [72, 149, 239, 52],
+    getLineColor: scopeHovered ? [8, 68, 185, 255] : [15, 70, 180, 255],
+    getLineWidth: scopeHovered ? 3 : 2.5,
     lineWidthUnits: "pixels",
     lineJointRounded: true,
     lineCapRounded: true,
     getElevation: feature => {
       return scopeHovered ? liftMeters : 0
     },
-    updateTriggers: {getElevation: [scopeHovered]},
+    updateTriggers: {
+      getElevation: [scopeHovered],
+      getFillColor: [scopeHovered],
+      getLineColor: [scopeHovered],
+      getLineWidth: [scopeHovered]
+    },
     transitions: {getElevation: {duration: transitionMs}},
     onHover
   }))
@@ -388,7 +393,7 @@ export default function(component) {
 
 
 _HOVER_SCOPE_MAP = st.components.v2.component(
-    "urban_agent_hover_scope_map_v9",
+    "urban_agent_hover_scope_map_v10",
     html=_COMPONENT_HTML,
     css=_COMPONENT_CSS,
     js=_COMPONENT_JS,
