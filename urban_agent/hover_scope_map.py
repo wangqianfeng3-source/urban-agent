@@ -358,10 +358,11 @@ export default function(component) {
       getCursor: () => scopeHovered ? "pointer" : "grab",
       getTooltip: info => {
         if (!info?.object) return null
-        const id = featureId(info.object)
         const belongs = Boolean(info.object.properties?.scope_member)
+        if (belongs) return null
+        const id = featureId(info.object)
         return {
-          text: belongs ? `${id} · 属于当前方位范围` : id,
+          text: id,
           style: {fontSize: "12px"}
         }
       }
@@ -393,7 +394,7 @@ export default function(component) {
 
 
 _HOVER_SCOPE_MAP = st.components.v2.component(
-    "urban_agent_hover_scope_map_v10",
+    "urban_agent_hover_scope_map_v11",
     html=_COMPONENT_HTML,
     css=_COMPONENT_CSS,
     js=_COMPONENT_JS,

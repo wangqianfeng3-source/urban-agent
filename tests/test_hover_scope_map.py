@@ -27,6 +27,8 @@ def test_component_uses_client_side_hover_elevation_without_legacy_api():
     assert "geometry: data.scope_geometry" in script
     assert "getFillColor: scopeHovered ? [72, 149, 239, 92]" in script
     assert "getFillColor: scopeHovered ? [72, 149, 239, 38]" in script
+    assert "if (belongs) return null" in script
+    assert "属于当前方位范围" not in script
     assert "return scopeHovered ? liftMeters : 0" in script
     assert "scopeHovered ? [70, 230, 255, 255]" in script
     assert 'addEventListener("pointerleave"' in script
